@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistema de Gestion de Servicios Tecnologicos
 
 Proyecto final de Programacion Avanzada (CMP 2102). Modulo de estructura del sistema: personas, clientes, tecnicos, dispositivos e historial de servicios, administrados con arreglos dinamicos.
@@ -39,3 +40,6 @@ Cada linea de los `.txt` representa un objeto con sus campos separados por `|`, 
 - `Dispositivo` referencia a su `Cliente` mediante `idCliente`.
 - `HistorialServicio` referencia a `Dispositivo` y `Tecnico` mediante `idDispositivo` e `idTecnico`.
 - Los `Gestor*` administran el ciclo de vida (creacion y destruccion) de sus objetos mediante `new`/`delete`.
+=======
+# Proyecto-Final-Programacion
+>>>>>>> origin/main

@@ -1,7 +1,7 @@
 #ifndef GESTORCLIENTES_HPP
 #define GESTORCLIENTES_HPP
 
-#include "Cliente.hpp"
+#include "modelos/Cliente.hpp"
 #include <string>
 
 //Administra un arreglo dinamico de punteros a Cliente

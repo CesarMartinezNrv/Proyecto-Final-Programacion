@@ -1,4 +1,4 @@
-#include "GestorTecnicos.hpp"
+#include "gestores/GestorTecnicos.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>

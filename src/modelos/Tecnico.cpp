@@ -1,4 +1,4 @@
-#include "Tecnico.hpp"
+#include "modelos/Tecnico.hpp"
 #include <iostream>
 
 Tecnico::Tecnico() : Persona(), especialidad{""}, estadoDisponible{true}, cantidadServiciosAtendidos{0}{}

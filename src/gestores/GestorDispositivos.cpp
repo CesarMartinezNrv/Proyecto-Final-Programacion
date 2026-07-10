@@ -1,4 +1,4 @@
-#include "GestorDispositivos.hpp"
+#include "gestores/GestorDispositivos.hpp"
 #include <iostream>
 #include <fstream>
 

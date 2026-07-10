@@ -1,4 +1,4 @@
-#include "Dispositivo.hpp"
+#include "modelos/Dispositivo.hpp"
 #include <iostream>
 #include <sstream>
 

@@ -1,7 +1,8 @@
-#include "GestorClientes.hpp"
-#include "GestorTecnicos.hpp"
-#include "GestorDispositivos.hpp"
-#include "HistorialServicio.hpp"
+#include "gestores/GestorClientes.hpp"
+#include "gestores/GestorTecnicos.hpp"
+#include "gestores/GestorDispositivos.hpp"
+#include "modelos/HistorialServicio.hpp"
+#include "utilidades/Constantes.hpp"
 #include <iostream>
 #include <limits>
 
@@ -16,10 +17,10 @@ GestorClientes gestorClientes;
 GestorTecnicos gestorTecnicos;
 GestorDispositivos gestorDispositivos;
 
-gestorClientes.cargarArchivo("clientes.txt");
-gestorTecnicos.cargarArchivo("tecnicos.txt");
-gestorDispositivos.cargarArchivo("dispositivos.txt");
-HistorialServicio::cargarArchivo("historial_servicios.txt");
+gestorClientes.cargarArchivo(Constantes::ARCHIVO_CLIENTES);
+gestorTecnicos.cargarArchivo(Constantes::ARCHIVO_TECNICOS);
+gestorDispositivos.cargarArchivo(Constantes::ARCHIVO_DISPOSITIVOS);
+HistorialServicio::cargarArchivo(Constantes::ARCHIVO_HISTORIAL);
 
 int opcion{-1};
 while(opcion != 0){
@@ -65,10 +66,10 @@ while(opcion != 0){
     }
 }
 
-gestorClientes.guardarArchivo("clientes.txt");
-gestorTecnicos.guardarArchivo("tecnicos.txt");
-gestorDispositivos.guardarArchivo("dispositivos.txt");
-HistorialServicio::guardarArchivo("historial_servicios.txt");
+gestorClientes.guardarArchivo(Constantes::ARCHIVO_CLIENTES);
+gestorTecnicos.guardarArchivo(Constantes::ARCHIVO_TECNICOS);
+gestorDispositivos.guardarArchivo(Constantes::ARCHIVO_DISPOSITIVOS);
+HistorialServicio::guardarArchivo(Constantes::ARCHIVO_HISTORIAL);
 HistorialServicio::liberarMemoria();
 
 return 0;

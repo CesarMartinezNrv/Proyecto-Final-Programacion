@@ -1,7 +1,7 @@
 #ifndef GESTORDISPOSITIVOS_HPP
 #define GESTORDISPOSITIVOS_HPP
 
-#include "Dispositivo.hpp"
+#include "modelos/Dispositivo.hpp"
 #include <string>
 
 class GestorDispositivos{

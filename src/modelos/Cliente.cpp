@@ -1,4 +1,4 @@
-#include "Cliente.hpp"
+#include "modelos/Cliente.hpp"
 #include <iostream>
 
 Cliente::Cliente() : Persona(), direccion{""}, fechaDeRegistro{""}, estadoAtencionCliente{""}, cantidadDispositivosRegistrados{0}{}

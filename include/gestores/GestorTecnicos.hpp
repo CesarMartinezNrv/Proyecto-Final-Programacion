@@ -1,7 +1,7 @@
 #ifndef GESTORTECNICOS_HPP
 #define GESTORTECNICOS_HPP
 
-#include "Tecnico.hpp"
+#include "modelos/Tecnico.hpp"
 #include <string>
 
 class GestorTecnicos{

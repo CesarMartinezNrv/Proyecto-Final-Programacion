@@ -1,4 +1,4 @@
-#include "Persona.hpp"
+#include "modelos/Persona.hpp"
 #include <iostream>
 #include <cctype>
 

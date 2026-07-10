@@ -1,0 +1,59 @@
+Proyecto-Final-Sistema-Gestion-Servicios-Tecnologicos/
+│
+├── include/
+│   ├── modelos/
+│   │   ├── Persona.hpp
+│   │   ├── Cliente.hpp
+│   │   ├── Tecnico.hpp
+│   │   ├── Dispositivo.hpp
+│   │   └── HistorialServicio.hpp
+│   │
+│   ├── gestores/
+│   │   ├── GestorClientes.hpp
+│   │   ├── GestorTecnicos.hpp
+│   │   └── GestorDispositivos.hpp
+│   │
+│   └── utilidades/
+│       ├── Validaciones.hpp
+│       └── Constantes.hpp
+│
+├── src/
+│   ├── main.cpp
+│   │
+│   ├── modelos/
+│   │   ├── Persona.cpp
+│   │   ├── Cliente.cpp
+│   │   ├── Tecnico.cpp
+│   │   ├── Dispositivo.cpp
+│   │   └── HistorialServicio.cpp
+│   │
+│   ├── gestores/
+│   │   ├── GestorClientes.cpp
+│   │   ├── GestorTecnicos.cpp
+│   │   └── GestorDispositivos.cpp
+│   │
+│   └── utilidades/
+│       └── Validaciones.cpp
+│
+├── data/
+│   ├── clientes.txt
+│   ├── tecnicos.txt
+│   ├── dispositivos.txt
+│   └── historial_servicios.txt
+│
+├── docs/
+│   ├── diagrama_clases.png
+│   ├── descripcion_clases.md
+│   └── defensa_proyecto.md
+│
+├── tests/
+│   ├── prueba_clientes.cpp
+│   ├── prueba_tecnicos.cpp
+│   └── prueba_dispositivos.cpp
+│
+├── build/
+│
+├── .gitignore
+├── Makefile
+├── README.md
+└── CONTRIBUCIONES.md

@@ -1,0 +1,55 @@
+#Archivos por C++
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+#Ejecutables del proyecto
+proyecto
+proyecto.exe
+main
+main.exe
+a.out
+a.exe
+
+#Carpetas de compilacion
+build/
+bin/
+obj/
+Debug/
+Release/
+x64/
+cmake-build-*/
+
+#Archivos de CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+#Configuracion personal de editores
+.vscode/
+.idea/
+*.code-workspace
+
+#Archivos temporales de Visual Studio
+.vs/
+*.user
+*.vcxproj.user
+*.suo
+
+#Archivos temporales de Code::Blocks
+*.depend
+*.layout
+
+#Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+#Archivos de respaldo
+*.bak
+*.tmp
+*.swp
+*~

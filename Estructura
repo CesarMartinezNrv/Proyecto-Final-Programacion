@@ -1,55 +1,101 @@
 Proyecto-Final-Sistema-Gestion-Servicios-Tecnologicos/
 │
 ├── include/
+│   │
 │   ├── modelos/
-│   │   ├── Persona.hpp
-│   │   ├── Cliente.hpp
-│   │   ├── Tecnico.hpp
-│   │   ├── Dispositivo.hpp
-│   │   └── HistorialServicio.hpp
+│   │   │
+│   │   ├── Persona.hpp                    [P1]
+│   │   ├── Cliente.hpp                    [P1]
+│   │   ├── Tecnico.hpp                    [P1]
+│   │   ├── Dispositivo.hpp                [P1]
+│   │   ├── HistorialServicio.hpp          [P1]
+│   │   │
+│   │   ├── Servicio.hpp                   [P2]
+│   │   ├── ServicioReparacion.hpp         [P2]
+│   │   ├── ServicioMantenimiento.hpp      [P2]
+│   │   ├── SolicitudServicio.hpp          [P2]
+│   │   └── Factura.hpp                    [P2]
 │   │
 │   ├── gestores/
-│   │   ├── GestorClientes.hpp
-│   │   ├── GestorTecnicos.hpp
-│   │   └── GestorDispositivos.hpp
+│   │   │
+│   │   ├── GestorClientes.hpp             [P1]
+│   │   ├── GestorTecnicos.hpp             [P1]
+│   │   ├── GestorDispositivos.hpp         [P1]
+│   │   │
+│   │   ├── GestorServicios.hpp            [P2]
+│   │   ├── GestorSolicitudes.hpp          [P2]
+│   │   └── GestorFacturas.hpp             [P2]
+│   │
+│   ├── aplicacion/
+│   │   ├── SistemaGestion.hpp             [AMBOS]
+│   │   └── Menu.hpp                       [AMBOS]
 │   │
 │   └── utilidades/
-│       ├── Validaciones.hpp
-│       └── Constantes.hpp
+│       ├── Validaciones.hpp               [P1 / AMBOS]
+│       ├── Archivos.hpp                   [P2 / AMBOS]
+│       └── Constantes.hpp                 [AMBOS]
 │
 ├── src/
-│   ├── main.cpp
+│   │
+│   ├── main.cpp                           [AMBOS]
 │   │
 │   ├── modelos/
-│   │   ├── Persona.cpp
-│   │   ├── Cliente.cpp
-│   │   ├── Tecnico.cpp
-│   │   ├── Dispositivo.cpp
-│   │   └── HistorialServicio.cpp
+│   │   │
+│   │   ├── Persona.cpp                    [P1]
+│   │   ├── Cliente.cpp                    [P1]
+│   │   ├── Tecnico.cpp                    [P1]
+│   │   ├── Dispositivo.cpp                [P1]
+│   │   ├── HistorialServicio.cpp          [P1]
+│   │   │
+│   │   ├── Servicio.cpp                   [P2]
+│   │   ├── ServicioReparacion.cpp         [P2]
+│   │   ├── ServicioMantenimiento.cpp      [P2]
+│   │   ├── SolicitudServicio.cpp          [P2]
+│   │   └── Factura.cpp                    [P2]
 │   │
 │   ├── gestores/
-│   │   ├── GestorClientes.cpp
-│   │   ├── GestorTecnicos.cpp
-│   │   └── GestorDispositivos.cpp
+│   │   │
+│   │   ├── GestorClientes.cpp             [P1]
+│   │   ├── GestorTecnicos.cpp             [P1]
+│   │   ├── GestorDispositivos.cpp         [P1]
+│   │   │
+│   │   ├── GestorServicios.cpp            [P2]
+│   │   ├── GestorSolicitudes.cpp          [P2]
+│   │   └── GestorFacturas.cpp             [P2]
+│   │
+│   ├── aplicacion/
+│   │   ├── SistemaGestion.cpp             [AMBOS]
+│   │   └── Menu.cpp                       [AMBOS]
 │   │
 │   └── utilidades/
-│       └── Validaciones.cpp
+│       ├── Validaciones.cpp               [P1 / AMBOS]
+│       └── Archivos.cpp                   [P2 / AMBOS]
 │
 ├── data/
-│   ├── clientes.txt
-│   ├── tecnicos.txt
-│   ├── dispositivos.txt
-│   └── historial_servicios.txt
+│   ├── clientes.txt                       [P1]
+│   ├── tecnicos.txt                       [P1]
+│   ├── dispositivos.txt                   [P1]
+│   ├── historial_servicios.txt            [P1 / AMBOS]
+│   ├── servicios.txt                      [P2]
+│   ├── solicitudes_servicio.txt           [P2]
+│   └── facturas.txt                       [P2]
 │
 ├── docs/
-│   ├── diagrama_clases.png
-│   ├── descripcion_clases.md
-│   └── defensa_proyecto.md
+│   ├── diagrama_clases.png                [AMBOS]
+│   ├── arquitectura_proyecto.md           [AMBOS]
+│   ├── descripcion_clases.md              [AMBOS]
+│   ├── flujo_del_sistema.md               [AMBOS]
+│   ├── defensa_persona_1.md               [P1]
+│   └── defensa_persona_2.md               [P2]
 │
 ├── tests/
-│   ├── prueba_clientes.cpp
-│   ├── prueba_tecnicos.cpp
-│   └── prueba_dispositivos.cpp
+│   ├── prueba_personas.cpp                [P1]
+│   ├── prueba_dispositivos.cpp            [P1]
+│   ├── prueba_historial.cpp               [P1]
+│   ├── prueba_servicios.cpp               [P2]
+│   ├── prueba_solicitudes.cpp             [P2]
+│   ├── prueba_facturas.cpp                [P2]
+│   └── prueba_persistencia.cpp            [AMBOS]
 │
 ├── build/
 │

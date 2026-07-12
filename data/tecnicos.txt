@@ -1,0 +1,3 @@
+T001;Luis Herrera;Computadoras
+T002;Ana Torres;Celulares
+T003;Pedro Mena;Electrónica

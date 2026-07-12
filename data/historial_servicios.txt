@@ -1,0 +1,3 @@
+O001;Equipo recibido para diagnóstico.
+O002;Se reemplazó la pantalla y está en pruebas.
+O003;Mantenimiento preventivo realizado y equipo entregado.

@@ -1,3 +1,0 @@
-D001;Laptop;Dell Inspiron 15
-D002;Celular;Samsung Galaxy S24
-D003;Computadora;HP Pavilion

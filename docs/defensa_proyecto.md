@@ -10,7 +10,7 @@ Sistema de gestion de servicios tecnologicos que permite registrar clientes, tec
 - `include/` separa las interfaces publicas (`.hpp`) de la implementacion en `src/` (`.cpp`), y `include/utilidades/` concentra validaciones y constantes compartidas para evitar duplicacion entre clases.
 
 ## Estructura del repositorio
-Ver `Estructura` en la raiz del proyecto para el arbol completo de carpetas y archivos.
+Ver [`estructura_repositorio.md`](estructura_repositorio.md) para el arbol completo de carpetas y archivos.
 
 ## Pendientes conocidos
 Ver los issues abiertos en el repositorio para el detalle de bugs pendientes de correccion.

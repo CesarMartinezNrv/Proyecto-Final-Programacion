@@ -92,7 +92,7 @@ void Dispositivo::mostrarInformacion() const{
 }
 
 std::string Dispositivo::aTextoArchivo() const{
-    return identificacionDispositivo<<"|"<<identificacionCliente<<"|"<<tipo<<"|"<<marca<<"|"<<modelo<<"|"<<numeroSerie<<"|"<<estado;
+    return identificacionDispositivo+"|"+identificacionCliente+"|"+tipo+"|"+marca+"|"+modelo+"|"+numeroSerie+"|"+estado;
 }
 
 Dispositivo Dispositivo::desdeTextoArchivo(std::string linea){
@@ -106,10 +106,6 @@ Dispositivo Dispositivo::desdeTextoArchivo(std::string linea){
     std::getline(flujo, numeroSerie, '|');
     std::getline(flujo, estado, '|');
     return Dispositivo(identificacionDispositivo, identificacionCliente, tipo, marca, modelo, numeroSerie, estado);
-}
-
-bool Dispositivo::operator==(const Dispositivo& otro) const{
-    return identificacionDispositivo == otro.identificacionDispositivo;
 }
 
 bool Dispositivo::validarTextoNoVacio(std::string texto) const{

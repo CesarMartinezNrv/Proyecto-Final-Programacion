@@ -47,9 +47,6 @@ public:
     std::string aTextoArchivo() const;
     //Transforma el string desde el txt a un objeto
     static Dispositivo desdeTextoArchivo(std::string linea);
-
-    
-    bool operator==(const Dispositivo& otro) const;
 };
 
 #endif

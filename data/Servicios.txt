@@ -1,3 +1,0 @@
-S001;Diagnostico;30.00
-S002;Reparacion;120.00
-S003;Mantenimiento Preventivo;60.00

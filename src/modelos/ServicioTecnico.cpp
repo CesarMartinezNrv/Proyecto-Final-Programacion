@@ -1,4 +1,4 @@
-#include "ServicioTecnico.h"
+#include "modelos/ServicioTecnico.hpp"
 #include <iostream> 
 
 ServicioTecnico::ServicioTecnico(std::string id, std::string nom, std::string des, double precio, int duracion){

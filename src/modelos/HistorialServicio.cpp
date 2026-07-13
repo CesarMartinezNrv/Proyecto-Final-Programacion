@@ -24,7 +24,7 @@ double costo) : identificacionServicio{identificacionServicio}, identificacionDi
 
 //Getters
 std::string HistorialServicio::getIdServicio() const{ return identificacionServicio;}
-std::string HistorialServicio::getIdentificacionDispositivo() const{ return identificacionDispositivo;}
+std::string HistorialServicio::getIdDispositivo() const{ return identificacionDispositivo;}
 std::string HistorialServicio::getIdTecnico() const{ return identificacionTecnico;}
 std::string HistorialServicio::getFecha() const{ return fecha;}
 std::string HistorialServicio::getDescripcion() const{ return descripcion;}
@@ -115,7 +115,7 @@ bool HistorialServicio::agregar(HistorialServicio* nuevoRegistro){
 
 HistorialServicio* HistorialServicio::buscarPorDispositivo(std::string identificacionDispositivo){
     for(int i{0}; i < cantidad; i++){
-        if(registros[i]->getIdentificacionDispositivo() == identificacionDispositivo){
+        if(registros[i]->getIdDispositivo() == identificacionDispositivo){
             return registros[i];
         }
     }

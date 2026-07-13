@@ -1,0 +1,4 @@
+diagnostico|S001|Diagnostico general|Revision completa|30.000000|45|Completo|1
+reparacion|S002|Cambio de pantalla|Pantalla rota|50.000000|90|120.000000|2.000000
+mantenimiento|S003|Mantenimiento preventivo|Limpieza interna|40.000000|60|1|1
+diagnostico|S004|Prueba diagnostico integral|Prueba fase 5|25.000000|30|Basico|0

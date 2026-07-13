@@ -28,7 +28,7 @@ bool GestorDispositivos::agregarDispositivo(Dispositivo* nuevoDispositivo){
     if(nuevoDispositivo == nullptr){
         return false;
     }
-    if(buscarPorIdentificacion(nuevoDispositivo->getIdentificacionDispositivo()) != nullptr){
+    if(buscar(nuevoDispositivo->getIdentificacionDispositivo()) != nullptr){
         std::cout<<"ERROR. Ya existe un dispositivo con ese id."<<std::endl;
         return false;
     }
@@ -40,9 +40,18 @@ bool GestorDispositivos::agregarDispositivo(Dispositivo* nuevoDispositivo){
     return true;
 }
 
-Dispositivo* GestorDispositivos::buscarPorIdentificacion(std::string identificacionDispositivo) const{
+Dispositivo* GestorDispositivos::buscar(const std::string& identificacionDispositivo) const{
     for(int i{0}; i < cantidad; i++){
         if(dispositivos[i]->getIdentificacionDispositivo() == identificacionDispositivo){
+            return dispositivos[i];
+        }
+    }
+    return nullptr;
+}
+
+Dispositivo* GestorDispositivos::buscar(const std::string& marca, const std::string& modelo) const{
+    for(int i{0}; i < cantidad; i++){
+        if(dispositivos[i]->getMarca() == marca && dispositivos[i]->getModelo() == modelo){
             return dispositivos[i];
         }
     }

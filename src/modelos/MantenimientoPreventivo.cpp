@@ -1,7 +1,7 @@
-#include "MantenimientoPreventivo.h"
+#include "modelos/MantenimientoPreventivo.hpp"
 #include <iostream>
 
-MantenimientoPreventivo::MantenimientoPreventivo, std::string id, std::string nombre, std::string descripcion, double precioBase, int duracion, bool limpieza, bool pasta)
+MantenimientoPreventivo::MantenimientoPreventivo(std::string id, std::string nombre, std::string descripcion, double precioBase, int duracion, bool limpieza, bool pasta)
 : ServicioTecnico(id,nombre,descripcion,precioBase,duracion)
 {
 
@@ -80,6 +80,10 @@ void MantenimientoPreventivo::mostrarInformacion() const{
     std::cout << std::endl;
     std::cout << "Costo Total: "<< calcularCosto()<< std::endl;
 
+}
+
+std::string MantenimientoPreventivo::transformarArchivo() const{
+    return "mantenimiento|"+id_servicio+"|"+nombre+"|"+descripcion+"|"+std::to_string(precio_base)+"|"+std::to_string(duracion_minutos)+"|"+std::to_string(incluye_limpieza)+"|"+std::to_string(incluye_pasta_termica);
 }
 
 MantenimientoPreventivo::~MantenimientoPreventivo(){

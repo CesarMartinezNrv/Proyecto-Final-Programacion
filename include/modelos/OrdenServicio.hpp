@@ -1,10 +1,10 @@
 #ifndef ORDENSERVICIO_H
 #define ORDENSERVICIO_H
 #include <string>
-#include "Cliente.h"
-#include "Tecnico.h"
-#include "Dispositivo.h"
-#include "ServicioTecnico.h"
+#include "modelos/Cliente.hpp"
+#include "modelos/Tecnico.hpp"
+#include "modelos/Dispositivo.hpp"
+#include "modelos/ServicioTecnico.hpp"
 
 class OrdenServicio{
 
@@ -38,6 +38,9 @@ public:
     double calcularCostoFinal() const;
 
     void mostrarInformacion() const;
+
+    //Serializa la orden guardando los IDs de las entidades relacionadas, no las direcciones de memoria
+    std::string transformarArchivo() const;
 
     ~OrdenServicio();
 

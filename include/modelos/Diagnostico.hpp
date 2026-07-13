@@ -1,6 +1,6 @@
 #ifndef DIAGNOSTICO_H
 #define DIAGNOSTICO_H
-#include "ServicioTecnico.h"
+#include "modelos/ServicioTecnico.hpp"
 #include <string>
 
 class Diagnostico : public ServicioTecnico{
@@ -27,6 +27,8 @@ public:
     std::string getTipo() const override;
 
     void mostrarInformacion() const override;
+
+    std::string transformarArchivo() const override;
 
     ~Diagnostico() override;
 

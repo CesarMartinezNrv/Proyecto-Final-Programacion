@@ -1,4 +1,4 @@
-#include "Reparacion.h"
+#include "modelos/Reparacion.hpp"
 #include <iostream>
 
 Reparacion::Reparacion(std::string id, std::string nombre, std::string descripcion, double precioBase, int duracion, double costoRepuesto, double horasManoObra)
@@ -68,6 +68,10 @@ void Reparacion::mostrarInformacion() const{
     std::cout << "Precio Base: " << precio_base<< std::endl;
     std::cout << "Costo Total: "<< calcularCosto()<< std::endl;
 
+}
+
+std::string Reparacion::transformarArchivo() const{
+    return "reparacion|"+id_servicio+"|"+nombre+"|"+descripcion+"|"+std::to_string(precio_base)+"|"+std::to_string(duracion_minutos)+"|"+std::to_string(costo_repuesto)+"|"+std::to_string(horas_mano_obra);
 }
 
 Reparacion::~Reparacion(){

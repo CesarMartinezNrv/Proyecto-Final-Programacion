@@ -53,7 +53,7 @@ void Tecnico::imprimirInformacionPersona() const{
 }
 
 std::string Tecnico::transformarArchivo() const{
-    return getCodigoPersona()<<"|"<<getNombre()<<"|"<<getNumeroDeTelefono()<<"|"+getCorreo()<<"|"<<getCedula()<<"|"<<especialidad<<"|"<<(estadoDisponible ? "1" : "0")<<"|"<<std::to_string(cantidadServiciosAtendidos);
+    return getCodigoPersona()+"|"+getNombre()+"|"+getNumeroDeTelefono()+"|"+getCorreo()+"|"+getCedula()+"|"+especialidad+"|"+(estadoDisponible ? "1" : "0")+"|"+std::to_string(cantidadServiciosAtendidos);
 }
 
 Tecnico::~Tecnico(){}

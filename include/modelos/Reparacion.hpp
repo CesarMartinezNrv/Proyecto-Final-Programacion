@@ -1,7 +1,7 @@
 #ifndef REPARACION_H
 #define REPARACION_H
 #include <string>
-#include "ServicioTecnico.h"
+#include "modelos/ServicioTecnico.hpp"
 
 class Reparacion : public ServicioTecnico{
 
@@ -27,6 +27,8 @@ public:
     std::string getTipo() const override;
 
     void mostrarInformacion() const override;
+
+    std::string transformarArchivo() const override;
 
     ~Reparacion() override;
 

@@ -1,4 +1,4 @@
-#include "OrdenServicio.h"
+#include "modelos/OrdenServicio.hpp"
 #include <iostream>
 
 OrdenServicio::OrdenServicio(std::string idOrden, std::string fecha, std::string problema, Cliente* cli, Dispositivo* disp, ServicioTecnico* serv){
@@ -79,6 +79,13 @@ void OrdenServicio::mostrarInformacion() const{
         std::cout << "Costo Final: "  << calcularCostoFinal()  << std::endl;
     }
 
+}
+
+std::string OrdenServicio::transformarArchivo() const{
+
+    std::string idTecnico{tecnico == nullptr ? "" : tecnico->getCodigoPersona()};
+
+    return id_orden+"|"+cliente->getCodigoPersona()+"|"+idTecnico+"|"+dispositivo->getIdentificacionDispositivo()+"|"+servicio->getIdServicio()+"|"+fecha_ingreso+"|"+problema_reportado+"|"+diagnostico+"|"+estado;
 }
 
 OrdenServicio::~OrdenServicio(){

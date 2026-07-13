@@ -1,3 +1,0 @@
-O001;2026-07-11;No enciende;Pendiente;C001;D001;S001
-O002;2026-07-11;Pantalla rota;En proceso;C002;D002;S002
-O003;2026-07-11;Limpieza general;Finalizada;C003;D003;S003

@@ -1,4 +1,4 @@
-#include "Diagnostico.h"
+#include "modelos/Diagnostico.hpp"
 #include <iostream>
 
 Diagnostico::Diagnostico(std::string id, std::string nombre, std::string descripcion, double precio, int duracion, std::string nivel, bool reporte)
@@ -56,6 +56,10 @@ void Diagnostico::mostrarInformacion() const{
 
     std::cout << "Precio base: " << precio_base << std::endl;
     std::cout << "Costo final: " << calcularCosto() << std::endl;
+}
+
+std::string Diagnostico::transformarArchivo() const{
+    return "diagnostico|"+id_servicio+"|"+nombre+"|"+descripcion+"|"+std::to_string(precio_base)+"|"+std::to_string(duracion_minutos)+"|"+nivel_revision+"|"+std::to_string(requiere_reporte);
 }
 
 Diagnostico::~Diagnostico(){

@@ -1,3 +1,1 @@
-T001;Luis Herrera;Computadoras
-T002;Ana Torres;Celulares
-T003;Pedro Mena;Electrónica
+T001|Pedro Ruiz|0992222222|pedro@example.com|0987654321|Hardware|1|0

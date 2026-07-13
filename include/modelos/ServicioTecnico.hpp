@@ -26,6 +26,7 @@ public:
     virtual double calcularCosto() const = 0;
     virtual std::string getTipo() const = 0;
     virtual void mostrarInformacion() const = 0;
+    virtual std::string transformarArchivo() const = 0;
 
     virtual ~ServicioTecnico();
 };

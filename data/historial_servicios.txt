@@ -1,3 +1,2 @@
-O001;Equipo recibido para diagnóstico.
-O002;Se reemplazó la pantalla y está en pruebas.
-O003;Mantenimiento preventivo realizado y equipo entregado.
+S001|D001|T001|2026-07-12|Revision de encendido|Fuente de poder danada|Fuente reemplazada|75.500000
+S004|D001|T001|2026-07-12|Prueba historial fase5|Diagnostico ok|Sin novedad|25.000000

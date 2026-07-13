@@ -72,12 +72,15 @@ void Cliente::imprimirInformacionPersona() const{
 }
 
 std::string Cliente::transformarArchivo() const{
-    return std::cout<<getCodigoPersona()<<"|"<<getNombre()<<"|"<<getNumeroDeTelefono()<<"|"<<getCorreo()<<"|"<<getCedula()<<"|"<<direccion<<"|"<<fechaDeRegistro<<"|"<<estadoAtencionCliente<<"|"<<std::to_string(cantidadDispositivosRegistrados);
+    return getCodigoPersona()+"|"+getNombre()+"|"+getNumeroDeTelefono()+"|"+getCorreo()+"|"+getCedula()+"|"+direccion+"|"+fechaDeRegistro+"|"+estadoAtencionCliente+"|"+std::to_string(cantidadDispositivosRegistrados);
 }
 
 //Estado cerrado para que sea facil de defender y de validar
 bool Cliente::validarEstadoAtencionCliente(std::string estado) const{
     if(estado == "activo"){
+        return true;
+    }
+    else if(estado == "inactivo"){
         return true;
     }
     else{

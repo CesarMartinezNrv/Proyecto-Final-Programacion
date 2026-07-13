@@ -17,7 +17,11 @@ public:
     ~GestorDispositivos();
 
     bool agregarDispositivo(Dispositivo* nuevoDispositivo);
-    Dispositivo* buscarPorIdentificacion(std::string identificacionDispositivo) const;
+
+    //Sobrecarga: busca por identificador unico o por combinacion de marca y modelo
+    Dispositivo* buscar(const std::string& identificacionDispositivo) const;
+    Dispositivo* buscar(const std::string& marca, const std::string& modelo) const;
+
     void mostrarPorCliente(std::string idCliente) const;
     bool eliminarDispositivo(std::string identificacionDispositivo);
     void mostrarTodos() const;

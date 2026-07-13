@@ -58,8 +58,8 @@ Proyecto-Final-Programacion/
 │   └── tecnicos.txt
 │
 ├── docs/
-│   ├── defensa_proyecto.md
-│   └── descripcion_clases.md
+│   ├── defensa_proyecto.txt
+│   └── descripcion_clases.txt
 │
 ├── tests/
 │   ├── prueba_clientes.cpp
@@ -67,5 +67,5 @@ Proyecto-Final-Programacion/
 │   └── prueba_tecnicos.cpp
 │
 ├── .gitignore
-├── CONTRIBUCIONES.md
+├── CONTRIBUCIONES.txt
 └── README.md

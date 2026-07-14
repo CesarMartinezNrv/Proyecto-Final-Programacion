@@ -5,162 +5,147 @@
 #include <iostream>
 #include <fstream>
 
-GestorServicios::GestorServicios(int capacidadInicial){
+// Constructor de la clase.
+// Recibe una capacidad inicial para el arreglo dinámico.
+GestorServicios::GestorServicios(int capacidadInicial) {
 
+    // Se guarda la capacidad inicial del arreglo.
     capacidad = capacidadInicial;
+
+    // Al inicio no existen servicios registrados.
     cantidad = 0;
+
+    // Se reserva memoria dinámica para un arreglo de punteros
+    // que almacenará objetos de tipo ServicioTecnico.
     servicios = new ServicioTecnico*[capacidad];
 }
 
-void GestorServicios::redimensionar(){
+// Destructor.
+// Se ejecuta automáticamente al destruir el objeto GestorServicios.
+GestorServicios::~GestorServicios() {
+
+    // Se elimina cada objeto ServicioTecnico creado con new.
+    for (int i = 0; i < cantidad; i++) {
+        delete servicios[i];
+    }
+
+    // Finalmente se libera el arreglo de punteros.
+    delete[] servicios;
+}
+
+// Función privada encargada de aumentar la capacidad del arreglo.
+void GestorServicios::redimensionar() {
+
+    // Se duplica la capacidad actual.
     capacidad *= 2;
+
+    // Se crea un nuevo arreglo con la nueva capacidad.
     ServicioTecnico** nuevo = new ServicioTecnico*[capacidad];
-    for(int i = 0; i < cantidad; i++){
+
+    // Se copian las direcciones de memoria de los servicios
+    // del arreglo antiguo al nuevo.
+    for (int i = 0; i < cantidad; i++) {
         nuevo[i] = servicios[i];
     }
 
+    // Se elimina únicamente el arreglo viejo.
+    // NO se eliminan los objetos porque siguen existiendo
+    // y ahora son apuntados por el nuevo arreglo.
     delete[] servicios;
-    servicios = nuevo;
 
+    // El puntero principal ahora apunta al nuevo arreglo.
+    servicios = nuevo;
 }
-bool GestorServicios::agregarServicio(ServicioTecnico* servicio){
-    if(servicio == nullptr){
-        return false;
-    }
-    if(buscarPorId(servicio->getIdServicio()) != nullptr){
-        std::cout<<"ERROR. Ya existe un servicio con ese id."<<std::endl;
-        return false;
-    }
-    if(cantidad == capacidad){
+
+// Agrega un nuevo servicio al gestor.
+void GestorServicios::agregarServicio(ServicioTecnico* servicio) {
+
+    // Si el arreglo está lleno,
+    // primero se aumenta su capacidad.
+    if (cantidad == capacidad) {
         redimensionar();
     }
 
+    // Se guarda el puntero al nuevo servicio
+    // en la siguiente posición disponible.
     servicios[cantidad] = servicio;
-    cantidad++;
-    return true;
 
+    // Se incrementa el número de servicios registrados.
+    cantidad++;
 }
-ServicioTecnico* GestorServicios::buscarPorId(std::string id) const{
-    for(int i = 0; i < cantidad; i++){
-        if(servicios[i]->getIdServicio() == id){
+
+// Busca un servicio mediante su ID.
+ServicioTecnico* GestorServicios::buscarPorId(const std::string& id) const {
+
+    // Se recorre todo el arreglo.
+    for (int i = 0; i < cantidad; i++) {
+
+        // Se compara el ID buscado con el ID del servicio.
+        if (servicios[i]->getIdServicio() == id) {
+
+            // Si coincide, se devuelve el puntero encontrado.
             return servicios[i];
         }
     }
+
+    // Si no existe ningún servicio con ese ID,
+    // se devuelve nullptr.
     return nullptr;
 }
 
-void GestorServicios::listarServicios() const{
-    if(cantidad == 0){
-        std::cout << "No existen servicios registrados."  << std::endl;
+// Muestra todos los servicios registrados.
+void GestorServicios::listarServicios() const {
+
+    // Si no hay servicios almacenados,
+    // se informa al usuario.
+    if (cantidad == 0) {
+        std::cout << "No existen servicios registrados." << std::endl;
         return;
     }
 
-    for(int i = 0; i < cantidad; i++){
-        servicios[i]->mostrarInformacion();
-        std::cout << "-----------------------------"  << std::endl;
-    }
+    // Se recorre el arreglo.
+    for (int i = 0; i < cantidad; i++) {
 
+        // Gracias al polimorfismo, cada objeto ejecuta
+        // su propia versión de mostrarInformacion().
+        servicios[i]->mostrarInformacion();
+
+        std::cout << std::endl;
+    }
 }
-void GestorServicios::eliminarServicio(std::string id){
-    for(int i = 0; i < cantidad; i++){
-        if(servicios[i]->getIdServicio() == id){
+
+// Elimina un servicio utilizando su ID.
+bool GestorServicios::eliminarServicio(const std::string& id) {
+
+    // Se busca el servicio.
+    for (int i = 0; i < cantidad; i++) {
+
+        if (servicios[i]->getIdServicio() == id) {
+
+            // Se libera la memoria del objeto encontrado.
             delete servicios[i];
-            for(int j = i; j < cantidad - 1; j++){
+
+            // Se recorren los elementos restantes
+            // una posición hacia la izquierda para
+            // evitar dejar espacios vacíos.
+            for (int j = i; j < cantidad - 1; j++) {
                 servicios[j] = servicios[j + 1];
             }
-            servicios[cantidad - 1] = nullptr;
+
+            // Se reduce la cantidad de elementos.
             cantidad--;
-            std::cout << "Servicio eliminado correctamente."  << std::endl;
-            return;
+
+            // La eliminación fue exitosa.
+            return true;
         }
     }
 
-    std::cout << "Servicio no encontrado."  << std::endl;
+    // No se encontró el servicio solicitado.
+    return false;
 }
 
-void GestorServicios::guardarArchivo(const std::string& nombreArchivo) const{
-    std::ofstream archivo(nombreArchivo);
-    if(archivo.is_open() == false){
-        std::cout<<"ERROR. No se pudo abrir el archivo para guardar los servicios."<<std::endl;
-        return;
-    }
-    for(int i = 0; i < cantidad; i++){
-        archivo<<servicios[i]->transformarArchivo()<<std::endl;
-    }
-    archivo.close();
-}
+// Devuelve el número de servicios registrados.
+int GestorServicios::getCantidad() const {
 
-std::string GestorServicios::extraerCampo(const std::string& linea, size_t& posicion) const{
-    size_t siguiente{linea.find('|', posicion)};
-    std::string campo;
-    if(siguiente == std::string::npos){
-        campo = linea.substr(posicion);
-        posicion = linea.size();
-    }
-    else{
-        campo = linea.substr(posicion, siguiente - posicion);
-        posicion = siguiente + 1;
-    }
-    return campo;
-}
-
-void GestorServicios::cargarArchivo(const std::string& nombreArchivo){
-    std::ifstream archivo(nombreArchivo);
-    if(archivo.is_open() == false){
-        std::cout<<"AVISO. No existe archivo previo de servicios, se inicia vacio."<<std::endl;
-        return;
-    }
-    std::string linea;
-    while(std::getline(archivo, linea)){
-        if(linea == ""){
-            continue;
-        }
-        size_t posicion{0};
-        std::string tipo{extraerCampo(linea, posicion)};
-        std::string id{extraerCampo(linea, posicion)};
-        std::string nombreServicio{extraerCampo(linea, posicion)};
-        std::string descripcion{extraerCampo(linea, posicion)};
-        std::string precioTexto{extraerCampo(linea, posicion)};
-        std::string duracionTexto{extraerCampo(linea, posicion)};
-        double precioBase{std::stod(precioTexto)};
-        int duracion{std::stoi(duracionTexto)};
-
-        ServicioTecnico* nuevoServicio{nullptr};
-
-        if(tipo == "diagnostico"){
-            std::string nivel{extraerCampo(linea, posicion)};
-            std::string reporteTexto{extraerCampo(linea, posicion)};
-            nuevoServicio = new Diagnostico(id, nombreServicio, descripcion, precioBase, duracion, nivel, reporteTexto == "1");
-        }
-        else if(tipo == "reparacion"){
-            std::string costoTexto{extraerCampo(linea, posicion)};
-            std::string horasTexto{extraerCampo(linea, posicion)};
-            nuevoServicio = new Reparacion(id, nombreServicio, descripcion, precioBase, duracion, std::stod(costoTexto), std::stod(horasTexto));
-        }
-        else if(tipo == "mantenimiento"){
-            std::string limpiezaTexto{extraerCampo(linea, posicion)};
-            std::string pastaTexto{extraerCampo(linea, posicion)};
-            nuevoServicio = new MantenimientoPreventivo(id, nombreServicio, descripcion, precioBase, duracion, limpiezaTexto == "1", pastaTexto == "1");
-        }
-        else{
-            std::cout<<"ADVERTENCIA. Tipo de servicio desconocido, linea ignorada."<<std::endl;
-            continue;
-        }
-
-        if(agregarServicio(nuevoServicio) == false){
-            delete nuevoServicio;
-            nuevoServicio = nullptr;
-        }
-    }
-    archivo.close();
-}
-
-GestorServicios::~GestorServicios(){
-    for(int i = 0; i < cantidad; i++){
-        delete servicios[i];
-        servicios[i] = nullptr;
-    }
-    delete[] servicios;
-    servicios = nullptr;
-
+    return cantidad;
 }

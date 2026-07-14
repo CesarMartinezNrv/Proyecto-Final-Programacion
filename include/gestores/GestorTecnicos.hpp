@@ -21,7 +21,7 @@ public:
     Tecnico* buscarPorCedula(std::string cedula) const;
     Tecnico* buscarDisponible() const;
     bool eliminarTecnico(std::string codigoPersona);
-    void mostrarTodos() const;
+    void imprimirRegistro() const;
     int getCantidad() const;
 
     void guardarArchivo(std::string nombreArchivo) const;

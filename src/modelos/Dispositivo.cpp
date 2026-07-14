@@ -2,8 +2,10 @@
 #include <iostream>
 #include <sstream>
 
+//Constructor por defecto
 Dispositivo::Dispositivo() : identificacionDispositivo{""}, identificacionCliente{""}, tipo{""}, marca{""}, modelo{""}, numeroSerie{""}, estado{"activo"}{}
 
+//Constructor con parametros
 Dispositivo::Dispositivo(std::string identificacionDispositivo,
 std::string identificacionCliente,
 std::string tipo,
@@ -38,10 +40,9 @@ bool Dispositivo::setTipo(std::string nuevoTipo){
     return true;
     }
 }
-
 bool Dispositivo::setMarca(std::string nuevaMarca){
     if(validarTextoNoVacio(nuevaMarca) == false){
-        std::cout<<"ERROR:la marca no puede estar vacia."<<std::endl;
+        std::cout<<"ERROR. La marca no puede estar vacia."<<std::endl;
         return false;
     }
     marca = nuevaMarca;
@@ -72,7 +73,7 @@ bool Dispositivo::setNumeroSerie(std::string nuevoNumeroSerie){
 
 bool Dispositivo::setEstado(std::string nuevoEstado){
     if(validarEstado(nuevoEstado) == false){
-        std::cout<<"ERROR. El estado debe ser activo, en_reparacion o dado_de_baja."<<std::endl;
+        std::cout<<"ERROR. El estado debe ser activo, en reparacion o dado de baja."<<std::endl;
         return false;
     }
     else{
@@ -82,8 +83,8 @@ bool Dispositivo::setEstado(std::string nuevoEstado){
 }
 
 void Dispositivo::mostrarInformacion() const{
-    std::cout<<"ID dispositivo: "<<identificacionDispositivo<<std::endl;
-    std::cout<<"ID cliente: "<<identificacionCliente<<std::endl;
+    std::cout<<"Identificacion dispositivo: "<<identificacionDispositivo<<std::endl;
+    std::cout<<"Identificacion cliente: "<<identificacionCliente<<std::endl;
     std::cout<<"Tipo: "<<tipo<<std::endl;
     std::cout<<"Marca: "<<marca<<std::endl;
     std::cout<<"Modelo: "<<modelo<<std::endl;
@@ -95,9 +96,12 @@ std::string Dispositivo::aTextoArchivo() const{
     return identificacionDispositivo+"|"+identificacionCliente+"|"+tipo+"|"+marca+"|"+modelo+"|"+numeroSerie+"|"+estado;
 }
 
+//Pasa de una linea de texto a un objeto
 Dispositivo Dispositivo::desdeTextoArchivo(std::string linea){
-    std::stringstream flujo(linea);
+    std::stringstream flujo(linea); //Permite leer una linea de texto como si fuera un ingreso de datos (cin)
+    //Variables locales: esta variables almacenan la informacion obtenida de la linea de texto
     std::string identificacionDispositivo, identificacionCliente, tipo, marca, modelo, numeroSerie, estado;
+    //La funcion lee la linea de texto hasta encontrar el caracter '|'
     std::getline(flujo, identificacionDispositivo, '|');
     std::getline(flujo, identificacionCliente, '|');
     std::getline(flujo, tipo, '|');
@@ -105,6 +109,7 @@ Dispositivo Dispositivo::desdeTextoArchivo(std::string linea){
     std::getline(flujo, modelo, '|');
     std::getline(flujo, numeroSerie, '|');
     std::getline(flujo, estado, '|');
+    //Se crea un objeto de la clase Dispositivo con las variables locales
     return Dispositivo(identificacionDispositivo, identificacionCliente, tipo, marca, modelo, numeroSerie, estado);
 }
 
@@ -116,10 +121,10 @@ bool Dispositivo::validarEstado(std::string estado) const{
     if(estado == "activo"){
         return true;
     }
-    else if(estado == "en_reparacion"){
+    else if(estado == "en reparacion"){
         return true;
     }
-    else if(estado == "dado_de_baja"){
+    else if(estado == "dado de baja"){
         return true;
     }
     else{

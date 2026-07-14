@@ -82,7 +82,7 @@ bool GestorDispositivos::eliminarDispositivo(std::string identificacionDispositi
     return false;
 }
 
-void GestorDispositivos::mostrarTodos() const{
+void GestorDispositivos::imprimirRegistro() const{
     for(int i{0}; i < cantidad; i++){
         dispositivos[i]->mostrarInformacion();
         std::cout<<"----------------------------"<<std::endl;

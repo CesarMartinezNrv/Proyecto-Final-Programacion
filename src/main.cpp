@@ -141,7 +141,7 @@ void menuClientes(GestorClientes& gestorClientes){
             registrarCliente(gestorClientes);
         }
         else if(opcion == 2){
-            gestorClientes.mostrarTodos();
+            gestorClientes.imprimirRegistro();
         }
         else if(opcion == 3){
             buscarCliente(gestorClientes);
@@ -213,7 +213,7 @@ void menuTecnicos(GestorTecnicos& gestorTecnicos){
             registrarTecnico(gestorTecnicos);
         }
         else if(opcion == 2){
-            gestorTecnicos.mostrarTodos();
+            gestorTecnicos.imprimirRegistro();
         }
         else if(opcion == 3){
             buscarTecnico(gestorTecnicos);
@@ -283,7 +283,7 @@ void menuDispositivos(GestorDispositivos& gestorDispositivos, GestorClientes& ge
             registrarDispositivo(gestorDispositivos, gestorClientes);
         }
         else if(opcion == 2){
-            gestorDispositivos.mostrarTodos();
+            gestorDispositivos.imprimirRegistro();
         }
         else if(opcion == 3){
             buscarDispositivoPorIdentificacion(gestorDispositivos);
@@ -606,7 +606,7 @@ void menuHistorial(){
             registrarHistorial();
         }
         else if(opcion == 2){
-            HistorialServicio::mostrarTodos();
+            HistorialServicio::imprimirRegistro();
         }
         else if(opcion == 3){
             buscarHistorialPorDispositivo();

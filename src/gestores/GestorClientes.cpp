@@ -5,6 +5,7 @@
 
 GestorClientes::GestorClientes() : clientes{nullptr}, capacidad{0}, cantidad{0}{}
 
+//Destructor
 GestorClientes::~GestorClientes(){
     for(int i{0}; i < cantidad; i++){
         delete clientes[i];
@@ -74,7 +75,7 @@ bool GestorClientes::eliminarCliente(std::string codigoPersona){
     return false;
 }
 
-void GestorClientes::mostrarTodos() const{
+void GestorClientes::imprimirRegistro() const{
     for(int i{0}; i < cantidad; i++){
         clientes[i]->imprimirInformacionPersona();
         std::cout<<"----------------------------"<<std::endl;

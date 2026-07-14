@@ -3,7 +3,8 @@
 
 #include <string>
 
-//Clase base abstracta para Cliente y Tecnico
+//Clase base abstracta para luego utilizarla en las 
+//clases Cliente y Tecnico
 class Persona{
 protected:
     std::string codigoPersona;
@@ -12,11 +13,10 @@ protected:
     std::string correo;
     std::string cedula;
 
-    //Metodos de validacion reutilizables por las clases derivadas
+    //Metodos de validacion de entrada
     bool validarTextoNoVacio(std::string texto) const;
     bool validarTelefono(std::string telefono) const;
     bool validarCorreo(std::string correo) const;
-    //TODO:decidir si validarCedula solo revisa longitud/digitos o incluye digito verificador ecuatoriano
     bool validarCedula(std::string cedula) const;
 
 public:
@@ -35,13 +35,13 @@ public:
     std::string getCorreo() const;
     std::string getCedula() const;
 
-    //Setters con validacion. codigoPersona no tiene setter porque es el identificador fijo desde la creacion
+    //Setters
     bool setNombre(std::string nuevoNombre);
     bool setNumeroDeTelefono(std::string nuevoTelefono);
     bool setCorreo(std::string nuevoCorreo);
     bool setCedula(std::string nuevaCedula);
 
-    //Metodos virtuales puros que obligan a cada derivada a definir su propio comportamiento
+    //Metodos virtuales puros (Depende de cada clase hija)
     virtual std::string tipoDePersona() const = 0;
     virtual void imprimirInformacionPersona() const = 0;
     virtual std::string transformarArchivo() const = 0;

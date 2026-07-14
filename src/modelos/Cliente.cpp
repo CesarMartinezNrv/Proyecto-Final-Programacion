@@ -1,8 +1,10 @@
 #include "modelos/Cliente.hpp"
 #include <iostream>
 
+//Constructor por defecto
 Cliente::Cliente() : Persona(), direccion{""}, fechaDeRegistro{""}, estadoAtencionCliente{""}, cantidadDispositivosRegistrados{0}{}
 
+//Constructor con parametros
 Cliente::Cliente(std::string codigoPersona,
 std::string nombre,
 std::string numeroDeTelefono,
@@ -42,7 +44,7 @@ bool Cliente::setFechaDeRegistro(std::string nuevaFecha){
 }
 
 bool Cliente::setEstadoAtencionCliente(std::string nuevoEstado){
-    if(validarEstadoAtencionCliente(nuevoEstado) == false){
+    if(validarEstadoAtencionCliente(nuevoEstado) == false){ //Solo valida "activo" o "inactivo"
         std::cout<<"ERROR. El estado de atencion debe ser activo o inactivo."<<std::endl;
         return false;
     }
@@ -50,11 +52,12 @@ bool Cliente::setEstadoAtencionCliente(std::string nuevoEstado){
     return true;
 }
 
-void Cliente::incrementarDispositivosRegistrados(){
+void Cliente::incrementarDispositivosRegistrados(){ //Incrementa el contador de dispotivos ligados al cliente
     cantidadDispositivosRegistrados++;
 }
 
-
+//Override de la clase Persona 
+//Retorna el string en base a la clase a la que pertence
 std::string Cliente::tipoDePersona() const{
     return "Cliente";
 }
@@ -71,11 +74,14 @@ void Cliente::imprimirInformacionPersona() const{
     std::cout<<"Dispositivos registrados: "<<cantidadDispositivosRegistrados<<std::endl;
 }
 
+//Transforma el objeto en una linea
 std::string Cliente::transformarArchivo() const{
     return getCodigoPersona()+"|"+getNombre()+"|"+getNumeroDeTelefono()+"|"+getCorreo()+"|"+getCedula()+"|"+direccion+"|"+fechaDeRegistro+"|"+estadoAtencionCliente+"|"+std::to_string(cantidadDispositivosRegistrados);
+    //Se utiliza std::to_string para convertir otro tipo de dato a tipo string 
 }
 
-//Estado cerrado para que sea facil de defender y de validar
+//Solo valida el string "activo" o "inactivo" entonces string invalidos son:
+// Activo,INACTIVO, pendiente, atendido, bloqueado
 bool Cliente::validarEstadoAtencionCliente(std::string estado) const{
     if(estado == "activo"){
         return true;

@@ -80,7 +80,7 @@ bool GestorTecnicos::eliminarTecnico(std::string codigoPersona){
     return false;
 }
 
-void GestorTecnicos::mostrarTodos() const{
+void GestorTecnicos::imprimirRegistro() const{
     for(int i{0}; i < cantidad; i++){
         tecnicos[i]->imprimirInformacionPersona();
         std::cout<<"----------------------------"<<std::endl;

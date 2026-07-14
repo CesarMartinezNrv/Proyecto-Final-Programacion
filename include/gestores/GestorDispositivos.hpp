@@ -24,7 +24,7 @@ public:
 
     void mostrarPorCliente(std::string idCliente) const;
     bool eliminarDispositivo(std::string identificacionDispositivo);
-    void mostrarTodos() const;
+    void imprimirRegistro() const;
     int getCantidad() const;
     void guardarArchivo(std::string nombreArchivo) const;
     void cargarArchivo(std::string nombreArchivo);

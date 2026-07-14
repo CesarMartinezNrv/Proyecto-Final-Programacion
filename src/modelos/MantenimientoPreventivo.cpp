@@ -1,8 +1,12 @@
 #include "modelos/MantenimientoPreventivo.hpp"
 #include <iostream>
 
-MantenimientoPreventivo::MantenimientoPreventivo(std::string id, std::string nombre, std::string descripcion, double precioBase, int duracion, bool limpieza, bool pasta)
-: ServicioTecnico(id,nombre,descripcion,precioBase,duracion)
+// Constructor de la clase MantenimientoPreventivo.
+// Inicializa los atributos propios y llama al constructor
+// de la clase base ServicioTecnico.
+
+MantenimientoPreventivo::MantenimientoPreventivo(std::string idServicio, std::string nombre, std::string descripcion, double precioBase, int duracion, bool limpieza, bool pasta)
+: ServicioTecnico(idServicio, nombre, descripcion, precioBase, duracion)
 {
 
     incluye_limpieza = limpieza;
@@ -10,30 +14,35 @@ MantenimientoPreventivo::MantenimientoPreventivo(std::string id, std::string nom
 
 }
 
+// Devuelve si el servicio incluye limpieza
 bool MantenimientoPreventivo::getIncluyeLimpieza() const{
 
     return incluye_limpieza;
 
 }
 
+// Devuelve si el servicio incluye cambio de pasta térmica
 bool MantenimientoPreventivo::getIncluyePastaTermica() const{
 
     return incluye_pasta_termica;
 
 }
 
+// Modifica si el servicio incluye limpieza
 void MantenimientoPreventivo::setIncluyeLimpieza(bool limpieza){
 
     incluye_limpieza = limpieza;
 
 }
 
+// Modifica si el servicio incluye cambio de pasta térmica
 void MantenimientoPreventivo::setIncluyePastaTermica(bool pasta){
 
     incluye_pasta_termica = pasta;
 
 }
 
+// Calcula el costo total del mantenimiento
 double MantenimientoPreventivo::calcularCosto() const{
 
     double total = precio_base;
@@ -48,19 +57,22 @@ double MantenimientoPreventivo::calcularCosto() const{
 
 }
 
+// Devuelve el tipo de servicio
 std::string MantenimientoPreventivo::getTipo() const{
 
     return "Mantenimiento Preventivo";
 
 }
 
+// Muestra la información del mantenimiento preventivo
 void MantenimientoPreventivo::mostrarInformacion() const{
 
     std::cout << "====== MANTENIMIENTO PREVENTIVO ======" << std::endl;
-    std::cout << "ID: "<< id_servicio<< std::endl;
-    std::cout << "Nombre: "<< nombre<< std::endl;
-    std::cout << "Descripcion: "<< descripcion<< std::endl;
-    std::cout << "Precio Base: "<< precio_base<< std::endl;
+    std::cout << "ID: " << id_servicio << std::endl;
+    std::cout << "Nombre: " << nombre << std::endl;
+    std::cout << "Descripcion: " << descripcion << std::endl;
+    std::cout << "Precio Base: " << precio_base << std::endl;
+
     std::cout << "Incluye limpieza: ";
 
     if(incluye_limpieza)
@@ -78,14 +90,11 @@ void MantenimientoPreventivo::mostrarInformacion() const{
         std::cout << "No";
 
     std::cout << std::endl;
-    std::cout << "Costo Total: "<< calcularCosto()<< std::endl;
+    std::cout << "Costo Total: " << calcularCosto() << std::endl;
 
 }
 
-std::string MantenimientoPreventivo::transformarArchivo() const{
-    return "mantenimiento|"+id_servicio+"|"+nombre+"|"+descripcion+"|"+std::to_string(precio_base)+"|"+std::to_string(duracion_minutos)+"|"+std::to_string(incluye_limpieza)+"|"+std::to_string(incluye_pasta_termica);
-}
-
+// Destructor de la clase MantenimientoPreventivo
 MantenimientoPreventivo::~MantenimientoPreventivo(){
 
 }

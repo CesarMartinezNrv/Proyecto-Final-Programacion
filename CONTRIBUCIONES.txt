@@ -1,30 +1,48 @@
-=========================================================
-        PROYECTO FINAL
- SISTEMA DE GESTIÓN DE SERVICIOS TECNOLÓGICOS
-              CONTRIBUCIONES
-=========================================================
-
-
 Integrante 2
 ------------
-
-Modelos:
-- ServicioTecnico (Clase abstracta)
-- Diagnostico
-- Reparacion
-- MantenimientoPreventivo
-- OrdenServicio
-
-Gestores:
-- GestorServicios
-- GestorOrdenes
-
-Utilidades:
-- Archivos
-
-Archivos de datos:
-- servicios.txt
-- ordenes.txt
+Proyecto-Final-Sistema-Gestion-Servicios-Tecnologicos/
+│
+├── include/
+│   │
+│   ├── modelos/
+│   │   ├── ServicioTecnico.hpp (clase abstracta) 
+│   │   ├── Diagnostico.hpp
+│   │   ├── Reparacion.hpp
+│   │   ├── MantenimientoPreventivo.hpp
+│   │   └── OrdenServicio.hpp
+│   │
+│   ├── gestores/
+│   │   ├── GestorServicios.hpp
+│   │   └── GestorOrdenes.hpp
+│   │
+│   └── utilidades/
+│       └── Archivos.hpp
+│
+├── src/
+│   │
+│   ├── modelos/
+│   │   ├── ServicioTecnico.cpp
+│   │   ├── Diagnostico.cpp
+│   │   ├── Reparacion.cpp
+│   │   ├── MantenimientoPreventivo.cpp
+│   │   └── OrdenServicio.cpp
+│   │
+│   ├── gestores/
+│   │   ├── GestorServicios.cpp
+│   │   └── GestorOrdenes.cpp
+│   │
+│   └── utilidades/
+│       └── Archivos.cpp
+│
+├── data/
+│   ├── servicios.txt
+│   ├── ordenes.txt
+│   ├── clientes.txt
+│   ├── tecnicos.txt
+│   ├── dispositivos.txt
+│   └── historiales.txt
+│
+└── main.cpp
 
 Archivos de apoyo:
 - main.cpp

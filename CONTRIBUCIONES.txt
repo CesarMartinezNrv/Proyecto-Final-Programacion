@@ -1,0 +1,54 @@
+=========================================================
+        PROYECTO FINAL
+ SISTEMA DE GESTIÓN DE SERVICIOS TECNOLÓGICOS
+              CONTRIBUCIONES
+=========================================================
+
+
+Integrante 2
+------------
+
+Modelos:
+- ServicioTecnico (Clase abstracta)
+- Diagnostico
+- Reparacion
+- MantenimientoPreventivo
+- OrdenServicio
+
+Gestores:
+- GestorServicios
+- GestorOrdenes
+
+Utilidades:
+- Archivos
+
+Archivos de datos:
+- servicios.txt
+- ordenes.txt
+
+Archivos de apoyo:
+- main.cpp
+- Documentación de las clases.
+- Comentarios y organización del código.
+- Persistencia básica mediante archivos de texto.
+
+---------------------------------------------------------
+
+Temas implementados
+-------------------
+
+✓ Programación Orientada a Objetos.
+✓ Encapsulamiento.
+✓ Herencia.
+✓ Polimorfismo.
+✓ Clases abstractas.
+✓ Métodos virtuales y override.
+✓ Constructores y destructores.
+✓ Memoria dinámica (new y delete).
+✓ Arreglos dinámicos.
+✓ Manejo de punteros.
+✓ Gestión de servicios.
+✓ Gestión de órdenes.
+✓ Persistencia de datos mediante archivos .txt.
+
+=========================================================

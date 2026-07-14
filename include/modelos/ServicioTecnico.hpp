@@ -23,7 +23,7 @@ protected:
 public:
 
     // Constructor
-    ServicioTecnico(std::string id, std::string nombre, std::string descripcion, double precio, int duracion);
+    ServicioTecnico(std::string idServicio, std::string nombre, std::string descripcion, double precio, int duracion);
    
     // Getters
     std::string getIdServicio() const;
@@ -46,5 +46,4 @@ public:
 
 };
 
-#endif
 #endif

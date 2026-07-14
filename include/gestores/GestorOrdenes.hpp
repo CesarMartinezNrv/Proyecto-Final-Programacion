@@ -7,47 +7,54 @@
 #include "gestores/GestorDispositivos.hpp"
 #include "gestores/GestorServicios.hpp"
 
-class GestorOrdenes{
+// Clase encargada de administrar todas las órdenes de servicio.
+// Utiliza un arreglo dinámico de punteros.
+
+class GestorOrdenes {
 
 private:
 
+    // Arreglo dinámico de punteros a OrdenServicio.
     OrdenServicio** ordenes;
+
+    // Número de órdenes registradas.
     int cantidad;
+
+    // Capacidad máxima del arreglo.
     int capacidad;
 
+    // Aumenta el tamaño del arreglo cuando se llena.
     void redimensionar();
-
-    //Extrae el campo que va desde posicion hasta el siguiente '|' y avanza posicion
-    std::string extraerCampo(const std::string& linea, size_t& posicion) const;
 
 public:
 
-    GestorOrdenes(int capacidadInicial = 10);
+    // Constructor.
+    // Reserva memoria para el arreglo dinámico.
+    GestorOrdenes(int capacidadInicial = 5);
 
-    bool agregarOrden(OrdenServicio* orden);
-
-    OrdenServicio* buscarPorId(std::string id) const;
-
-    void listarOrdenes() const;
-
-    void listarOrdenesPendientes() const;
-
-    void actualizarEstado(std::string idOrden,  std::string nuevoEstado);
-
-    //Persistencia con delimitador "|". Guarda IDs, no punteros
-    void guardarArchivo(const std::string& nombreArchivo) const;
-
-    //Reconstruye cada orden buscando sus referencias por ID en los gestores ya cargados
-    void cargarArchivo(
-        const std::string& nombreArchivo,
-        const GestorClientes& gestorClientes,
-        const GestorTecnicos& gestorTecnicos,
-        const GestorDispositivos& gestorDispositivos,
-        const GestorServicios& gestorServicios
-    );
-
+    // Destructor.
+    // Libera toda la memoria dinámica utilizada.
     ~GestorOrdenes();
 
+    // Agrega una nueva orden.
+    void agregarOrden(OrdenServicio* orden);
+
+    // Busca una orden por su identificador.
+    // Devuelve nullptr si no existe.
+    OrdenServicio* buscarPorId(const std::string& id) const;
+
+    // Muestra todas las órdenes registradas.
+    void listarOrdenes() const;
+
+    // Muestra únicamente las órdenes pendientes.
+    void listarOrdenesPendientes() const;
+
+    // Cambia el estado de una orden.
+    // Devuelve true si se actualizó correctamente.
+    bool actualizarEstado(const std::string& idOrden, const std::string& nuevoEstado);
+
+    // Devuelve el número de órdenes almacenadas.
+    int getCantidad() const;
 };
 
 #endif

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SGST | Sistema de Gestión de Servicios Técnicos</title>
+<meta name="description" content="Panel administrativo demostrativo del Sistema de Gestión de Servicios Técnicos en C++.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ SPRITE DE ICONOS SVG PROPIOS ============ -->
+<svg class="sprite-oculto" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="icono-dashboard" viewBox="0 0 24 24">
+      <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+    </symbol>
+    <symbol id="icono-cliente" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+    </symbol>
+    <symbol id="icono-tecnico" viewBox="0 0 24 24">
+      <path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4L21 6l-3-3-3.3 3.3z" />
+    </symbol>
+    <symbol id="icono-dispositivo" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="12" rx="1" />
+      <path d="M2 20h20M9 20l1-4h4l1 4" />
+    </symbol>
+    <symbol id="icono-servicio" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 13a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V19a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1z" />
+    </symbol>
+    <symbol id="icono-orden" viewBox="0 0 24 24">
+      <rect x="5" y="3" width="14" height="18" rx="1" />
+      <path d="M9 3v3h6V3M8 11h8M8 15h5" />
+    </symbol>
+    <symbol id="icono-historial" viewBox="0 0 24 24">
+      <path d="M3 12a9 9 0 1 0 3-6.7" />
+      <path d="M3 4v5h5M12 8v5l3 2" />
+    </symbol>
+    <symbol id="icono-menu" viewBox="0 0 24 24">
+      <path d="M3 6h18M3 12h18M3 18h18" />
+    </symbol>
+    <symbol id="icono-colapsar" viewBox="0 0 24 24">
+      <path d="M15 5l-7 7 7 7" />
+    </symbol>
+    <symbol id="icono-buscar" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M21 21l-4.3-4.3" />
+    </symbol>
+    <symbol id="icono-cerrar" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" />
+    </symbol>
+    <symbol id="icono-agregar" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14" />
+    </symbol>
+    <symbol id="icono-ver" viewBox="0 0 24 24">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </symbol>
+    <symbol id="icono-estado" viewBox="0 0 24 24">
+      <path d="M12 20a8 8 0 1 0-8-8" />
+      <path d="M12 4v4l3 2" />
+    </symbol>
+    <symbol id="icono-exito" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 12l3 3 5-6" />
+    </symbol>
+    <symbol id="icono-error" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 8v5M12 16h.01" />
+    </symbol>
+    <symbol id="icono-alerta" viewBox="0 0 24 24">
+      <path d="M12 3l10 18H2L12 3z" />
+      <path d="M12 10v4M12 17h.01" />
+    </symbol>
+    <symbol id="icono-info" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 8h.01M12 11v5" />
+    </symbol>
+    <symbol id="icono-reiniciar" viewBox="0 0 24 24">
+      <path d="M4 4v6h6" />
+      <path d="M20 20v-6h-6" />
+      <path d="M5.6 9A8 8 0 0 1 20 9M18.4 15a8 8 0 0 1-14.4 0" />
+    </symbol>
+    <symbol id="icono-chip" viewBox="0 0 24 24">
+      <rect x="7" y="7" width="10" height="10" rx="1" />
+      <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" />
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ APLICACIÓN ============ -->
+<div class="app" id="app">
+
+  <!-- ---------- BARRA LATERAL ---------- -->
+  <aside class="barra-lateral" id="barra-lateral" aria-label="Navegación principal">
+    <div class="marca-lateral">
+      <svg class="marca-icono" aria-hidden="true"><use href="#icono-chip"></use></svg>
+      <div class="marca-texto">
+        <span class="marca-nombre">SGST</span>
+        <span class="marca-subtitulo">Gestión Técnica</span>
+      </div>
+    </div>
+
+    <nav class="menu-navegacion" aria-label="Secciones del sistema">
+      <ul class="lista-navegacion">
+        <li>
+          <button type="button" class="enlace-navegacion activo" data-seccion="dashboard" aria-current="page">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-dashboard"></use></svg>
+            <span class="texto-navegacion">Dashboard</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="enlace-navegacion" data-seccion="clientes">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-cliente"></use></svg>
+            <span class="texto-navegacion">Clientes</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="enlace-navegacion" data-seccion="tecnicos">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-tecnico"></use></svg>
+            <span class="texto-navegacion">Técnicos</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="enlace-navegacion" data-seccion="dispositivos">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-dispositivo"></use></svg>
+            <span class="texto-navegacion">Dispositivos</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="enlace-navegacion" data-seccion="servicios">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-servicio"></use></svg>
+            <span class="texto-navegacion">Servicios</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="enlace-navegacion" data-seccion="ordenes">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-orden"></use></svg>
+            <span class="texto-navegacion">Órdenes</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="enlace-navegacion" data-seccion="historial">
+            <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-historial"></use></svg>
+            <span class="texto-navegacion">Historial</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="pie-lateral">
+      <button type="button" class="boton-colapsar" id="boton-colapsar" aria-label="Contraer menú lateral" aria-pressed="false">
+        <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-colapsar"></use></svg>
+        <span class="texto-navegacion">Contraer menú</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="fondo-superpuesto" id="fondo-superpuesto" hidden></div>
+
+  <!-- ---------- CONTENIDO PRINCIPAL ---------- -->
+  <div class="contenedor-principal">
+
+    <!-- ---------- BARRA SUPERIOR ---------- -->
+    <header class="barra-superior">
+      <button type="button" class="boton-menu-movil" id="boton-menu-movil" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="barra-lateral">
+        <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-menu"></use></svg>
+      </button>
+
+      <div class="titulo-superior">
+        <h1 class="nombre-sistema">Sistema de Gestión de Servicios Técnicos</h1>
+        <p class="seccion-actual" id="titulo-seccion-actual">Dashboard</p>
+      </div>
+
+      <div class="info-superior">
+        <span class="etiqueta-modo-demo" title="Todos los datos se guardan únicamente en este navegador">
+          <svg class="icono-etiqueta" aria-hidden="true"><use href="#icono-info"></use></svg>
+          MODO DEMOSTRACIÓN LOCAL
+        </span>
+        <div class="reloj-sistema" aria-live="off">
+          <span id="fecha-actual" class="fecha-actual">--</span>
+          <span id="hora-actual" class="hora-actual">--:--:--</span>
+        </div>
+        <span class="indicador-estado-sistema" id="indicador-estado-sistema">
+          <span class="punto-estado" aria-hidden="true"></span>
+          Sistema operativo
+        </span>
+      </div>
+    </header>
+
+    <!-- ---------- CONTENIDO DE SECCIONES ---------- -->
+    <main class="contenido-principal" id="contenido-principal">
+
+      <!-- ===================== DASHBOARD ===================== -->
+      <section class="seccion activa" id="seccion-dashboard" aria-labelledby="titulo-dashboard">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-dashboard">Panel general</h2>
+            <p class="descripcion-seccion">Resumen calculado en tiempo real a partir de los datos guardados en este navegador.</p>
+          </div>
+        </div>
+
+        <div class="cuadricula-estadisticas" id="cuadricula-estadisticas" aria-label="Estadísticas generales"></div>
+
+        <div class="cuadricula-panel">
+          <article class="tarjeta-hud tarjeta-grafico">
+            <h3>Órdenes por estado</h3>
+            <div id="grafico-estado-ordenes" class="contenedor-grafico"></div>
+          </article>
+
+          <article class="tarjeta-hud tarjeta-grafico">
+            <h3>Servicios más utilizados</h3>
+            <div id="grafico-servicios-usados" class="contenedor-grafico contenedor-grafico-barras"></div>
+          </article>
+
+          <article class="tarjeta-hud tarjeta-grafico">
+            <h3>Dispositivos por tipo</h3>
+            <div id="grafico-dispositivos-tipo" class="contenedor-grafico contenedor-grafico-barras"></div>
+          </article>
+
+          <article class="tarjeta-hud tarjeta-accesos">
+            <h3>Accesos rápidos</h3>
+            <div class="rejilla-accesos" id="rejilla-accesos-rapidos"></div>
+          </article>
+        </div>
+
+        <div class="cuadricula-panel cuadricula-panel-dos">
+          <article class="tarjeta-hud">
+            <h3>Órdenes recientes</h3>
+            <div class="tabla-envoltorio">
+              <table class="tabla-datos" id="tabla-ordenes-recientes">
+                <thead>
+                  <tr><th>ID</th><th>Cliente</th><th>Estado</th><th>Costo final</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="tarjeta-hud">
+            <div class="cabecera-tarjeta-con-accion">
+              <h3>Actividad reciente</h3>
+            </div>
+            <ul class="lista-actividad" id="lista-actividad-reciente"></ul>
+          </article>
+        </div>
+
+        <div class="tarjeta-hud tarjeta-alerta-ordenes" id="tarjeta-alerta-pendientes" hidden>
+          <svg class="icono-alerta-grande" aria-hidden="true"><use href="#icono-alerta"></use></svg>
+          <div>
+            <h3 id="texto-alerta-pendientes">Hay órdenes pendientes</h3>
+            <p>Revisa la sección de Órdenes para asignar técnicos y actualizar su estado.</p>
+          </div>
+          <button type="button" class="boton boton-secundario" data-seccion="ordenes">Ver órdenes</button>
+        </div>
+      </section>
+
+      <!-- ===================== CLIENTES ===================== -->
+      <section class="seccion" id="seccion-clientes" aria-labelledby="titulo-clientes">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-clientes">Clientes</h2>
+            <p class="descripcion-seccion">Registro y consulta de clientes del taller. Corresponde a las clases <code>Persona</code> y <code>Cliente</code>.</p>
+          </div>
+          <button type="button" class="boton boton-primario" id="boton-nuevo-cliente">
+            <svg class="icono-boton" aria-hidden="true"><use href="#icono-agregar"></use></svg>
+            Registrar cliente
+          </button>
+        </div>
+
+        <div class="barra-herramientas">
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-cliente-codigo" class="etiqueta-oculta">Buscar cliente por código</label>
+            <input type="text" id="buscar-cliente-codigo" placeholder="Buscar por código exacto…">
+          </div>
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-cliente-nombre" class="etiqueta-oculta">Buscar cliente por nombre</label>
+            <input type="text" id="buscar-cliente-nombre" placeholder="Buscar por nombre…">
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-cliente-estado">Estado</label>
+            <select id="filtro-cliente-estado">
+              <option value="">Todos</option>
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tabla-envoltorio">
+          <table class="tabla-datos" id="tabla-clientes">
+            <thead>
+              <tr>
+                <th>Código</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Cédula</th>
+                <th>Dirección</th><th>Registro</th><th>Estado</th><th>Dispositivos</th><th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="mensaje-vacio" id="mensaje-vacio-clientes" hidden>No hay clientes registrados con esos criterios.</p>
+      </section>
+
+      <!-- ===================== TÉCNICOS ===================== -->
+      <section class="seccion" id="seccion-tecnicos" aria-labelledby="titulo-tecnicos">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-tecnicos">Técnicos</h2>
+            <p class="descripcion-seccion">Registro y consulta de técnicos. Corresponde a las clases <code>Persona</code> y <code>Tecnico</code>.</p>
+          </div>
+          <button type="button" class="boton boton-primario" id="boton-nuevo-tecnico">
+            <svg class="icono-boton" aria-hidden="true"><use href="#icono-agregar"></use></svg>
+            Registrar técnico
+          </button>
+        </div>
+
+        <div class="barra-herramientas">
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-tecnico-codigo" class="etiqueta-oculta">Buscar técnico por código</label>
+            <input type="text" id="buscar-tecnico-codigo" placeholder="Buscar por código exacto…">
+          </div>
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-tecnico-texto" class="etiqueta-oculta">Buscar técnico por nombre o especialidad</label>
+            <input type="text" id="buscar-tecnico-texto" placeholder="Buscar por nombre o especialidad…">
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-tecnico-disponibilidad">Disponibilidad</label>
+            <select id="filtro-tecnico-disponibilidad">
+              <option value="">Todos</option>
+              <option value="disponible">Disponible</option>
+              <option value="ocupado">Ocupado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tabla-envoltorio">
+          <table class="tabla-datos" id="tabla-tecnicos">
+            <thead>
+              <tr>
+                <th>Código</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Cédula</th>
+                <th>Especialidad</th><th>Disponibilidad</th><th>Servicios atendidos</th><th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="mensaje-vacio" id="mensaje-vacio-tecnicos" hidden>No hay técnicos registrados con esos criterios.</p>
+      </section>
+
+      <!-- ===================== DISPOSITIVOS ===================== -->
+      <section class="seccion" id="seccion-dispositivos" aria-labelledby="titulo-dispositivos">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-dispositivos">Dispositivos</h2>
+            <p class="descripcion-seccion">Equipos registrados por cada cliente. Corresponde a la clase <code>Dispositivo</code>.</p>
+          </div>
+          <button type="button" class="boton boton-primario" id="boton-nuevo-dispositivo">
+            <svg class="icono-boton" aria-hidden="true"><use href="#icono-agregar"></use></svg>
+            Registrar dispositivo
+          </button>
+        </div>
+
+        <div class="barra-herramientas">
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-dispositivo-identificacion" class="etiqueta-oculta">Buscar dispositivo por identificación</label>
+            <input type="text" id="buscar-dispositivo-identificacion" placeholder="Buscar por identificación…">
+          </div>
+          <div class="campo-busqueda campo-busqueda-doble">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-dispositivo-marca" class="etiqueta-oculta">Buscar por marca</label>
+            <input type="text" id="buscar-dispositivo-marca" placeholder="Marca…">
+            <label for="buscar-dispositivo-modelo" class="etiqueta-oculta">Buscar por modelo</label>
+            <input type="text" id="buscar-dispositivo-modelo" placeholder="Modelo…">
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-dispositivo-cliente">Cliente</label>
+            <select id="filtro-dispositivo-cliente"><option value="">Todos</option></select>
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-dispositivo-tipo">Tipo</label>
+            <select id="filtro-dispositivo-tipo"><option value="">Todos</option></select>
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-dispositivo-estado">Estado</label>
+            <select id="filtro-dispositivo-estado">
+              <option value="">Todos</option>
+              <option value="activo">Activo</option>
+              <option value="en reparacion">En reparación</option>
+              <option value="dado de baja">Dado de baja</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tabla-envoltorio">
+          <table class="tabla-datos" id="tabla-dispositivos">
+            <thead>
+              <tr>
+                <th>Identificación</th><th>Cliente</th><th>Tipo</th><th>Marca</th>
+                <th>Modelo</th><th>N.° serie</th><th>Estado</th><th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="mensaje-vacio" id="mensaje-vacio-dispositivos" hidden>No hay dispositivos registrados con esos criterios.</p>
+      </section>
+
+      <!-- ===================== SERVICIOS ===================== -->
+      <section class="seccion" id="seccion-servicios" aria-labelledby="titulo-servicios">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-servicios">Servicios técnicos</h2>
+            <p class="descripcion-seccion">Catálogo polimórfico de servicios: <code>Diagnostico</code>, <code>Reparacion</code> y <code>MantenimientoPreventivo</code>, todos derivados de <code>ServicioTecnico</code>.</p>
+          </div>
+          <button type="button" class="boton boton-primario" id="boton-nuevo-servicio">
+            <svg class="icono-boton" aria-hidden="true"><use href="#icono-agregar"></use></svg>
+            Registrar servicio
+          </button>
+        </div>
+
+        <div class="barra-herramientas">
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-servicio-identificacion" class="etiqueta-oculta">Buscar servicio por identificación</label>
+            <input type="text" id="buscar-servicio-identificacion" placeholder="Buscar por identificación exacta…">
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-servicio-tipo">Tipo</label>
+            <select id="filtro-servicio-tipo">
+              <option value="">Todos</option>
+              <option value="Diagnostico">Diagnóstico</option>
+              <option value="Reparacion">Reparación</option>
+              <option value="MantenimientoPreventivo">Mantenimiento preventivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="rejilla-tarjetas" id="rejilla-servicios"></div>
+        <p class="mensaje-vacio" id="mensaje-vacio-servicios" hidden>No hay servicios registrados con esos criterios.</p>
+      </section>
+
+      <!-- ===================== ÓRDENES ===================== -->
+      <section class="seccion" id="seccion-ordenes" aria-labelledby="titulo-ordenes">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-ordenes">Órdenes de servicio</h2>
+            <p class="descripcion-seccion">Relaciona cliente, dispositivo, servicio y técnico. Corresponde a la clase <code>OrdenServicio</code>.</p>
+          </div>
+          <button type="button" class="boton boton-primario" id="boton-nueva-orden">
+            <svg class="icono-boton" aria-hidden="true"><use href="#icono-agregar"></use></svg>
+            Crear orden
+          </button>
+        </div>
+
+        <div class="barra-herramientas">
+          <div class="campo-busqueda">
+            <svg class="icono-busqueda" aria-hidden="true"><use href="#icono-buscar"></use></svg>
+            <label for="buscar-orden-identificacion" class="etiqueta-oculta">Buscar orden por identificación</label>
+            <input type="text" id="buscar-orden-identificacion" placeholder="Buscar por identificación exacta…">
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-orden-estado">Estado</label>
+            <select id="filtro-orden-estado">
+              <option value="">Todos</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="En proceso">En proceso</option>
+              <option value="Finalizada">Finalizada</option>
+            </select>
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-orden-tecnico">Técnico</label>
+            <select id="filtro-orden-tecnico"><option value="">Todos</option></select>
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-orden-cliente">Cliente</label>
+            <select id="filtro-orden-cliente"><option value="">Todos</option></select>
+          </div>
+          <label class="casilla-filtro">
+            <input type="checkbox" id="filtro-orden-solo-pendientes">
+            Solo pendientes
+          </label>
+        </div>
+
+        <div class="tabla-envoltorio">
+          <table class="tabla-datos" id="tabla-ordenes">
+            <thead>
+              <tr>
+                <th>Identificación</th><th>Fecha</th><th>Cliente</th><th>Dispositivo</th>
+                <th>Servicio</th><th>Técnico</th><th>Estado</th><th>Costo final</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="mensaje-vacio" id="mensaje-vacio-ordenes" hidden>No hay órdenes registradas con esos criterios.</p>
+      </section>
+
+      <!-- ===================== HISTORIAL ===================== -->
+      <section class="seccion" id="seccion-historial" aria-labelledby="titulo-historial">
+        <div class="cabecera-seccion">
+          <div>
+            <h2 id="titulo-historial">Historial de servicios</h2>
+            <p class="descripcion-seccion">Registro independiente de intervenciones. Corresponde a la clase estática <code>HistorialServicio</code>.</p>
+          </div>
+          <button type="button" class="boton boton-primario" id="boton-nuevo-historial">
+            <svg class="icono-boton" aria-hidden="true"><use href="#icono-agregar"></use></svg>
+            Registrar historial
+          </button>
+        </div>
+
+        <div class="barra-herramientas">
+          <div class="campo-filtro">
+            <label for="buscar-historial-dispositivo">Buscar por dispositivo</label>
+            <select id="buscar-historial-dispositivo"><option value="">Seleccione…</option></select>
+          </div>
+          <div class="campo-filtro">
+            <label for="buscar-historial-tecnico">Buscar por técnico</label>
+            <select id="buscar-historial-tecnico"><option value="">Seleccione…</option></select>
+          </div>
+          <div class="campo-filtro">
+            <label for="filtro-historial-fecha">Filtrar por fecha</label>
+            <input type="text" id="filtro-historial-fecha" placeholder="Ej. 2026-07">
+          </div>
+          <button type="button" class="boton boton-secundario" id="boton-limpiar-filtros-historial">Limpiar</button>
+        </div>
+
+        <div class="tabla-envoltorio">
+          <table class="tabla-datos" id="tabla-historial">
+            <thead>
+              <tr>
+                <th>Servicio</th><th>Dispositivo</th><th>Técnico</th><th>Fecha</th>
+                <th>Descripción</th><th>Costo</th><th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="mensaje-vacio" id="mensaje-vacio-historial" hidden>No hay registros de historial con esos criterios.</p>
+      </section>
+
+    </main>
+
+    <footer class="pie-pagina">
+      <p>Frontend demostrativo del proyecto de Programación Avanzada en C++ · Datos almacenados solo en este navegador · <button type="button" class="enlace-restablecer" id="boton-restablecer-datos"><svg class="icono-restablecer" aria-hidden="true"><use href="#icono-reiniciar"></use></svg>Restablecer datos de demostración</button></p>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ MODAL GENÉRICO ============ -->
+<div class="capa-modal" id="capa-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal" id="modal">
+    <header class="modal-cabecera">
+      <h2 id="titulo-modal">Título</h2>
+      <button type="button" class="boton-cerrar-modal" id="boton-cerrar-modal" aria-label="Cerrar ventana">
+        <svg class="icono-navegacion" aria-hidden="true"><use href="#icono-cerrar"></use></svg>
+      </button>
+    </header>
+    <div class="modal-cuerpo" id="modal-cuerpo"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL DE CONFIRMACIÓN ============ -->
+<div class="capa-modal capa-confirmacion" id="capa-confirmacion" hidden>
+  <div class="modal modal-confirmacion" role="alertdialog" aria-modal="true" aria-labelledby="titulo-confirmacion" aria-describedby="texto-confirmacion">
+    <svg class="icono-confirmacion" aria-hidden="true"><use href="#icono-alerta"></use></svg>
+    <h2 id="titulo-confirmacion">¿Confirmar acción?</h2>
+    <p id="texto-confirmacion">¿Deseas continuar?</p>
+    <div class="acciones-confirmacion">
+      <button type="button" class="boton boton-fantasma" id="boton-cancelar-confirmacion">Cancelar</button>
+      <button type="button" class="boton boton-peligro" id="boton-aceptar-confirmacion">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONTENEDOR DE NOTIFICACIONES ============ -->
+<div class="contenedor-toasts" id="contenedor-toasts" aria-live="polite" aria-atomic="false"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

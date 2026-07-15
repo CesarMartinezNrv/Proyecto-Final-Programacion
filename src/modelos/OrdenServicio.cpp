@@ -5,9 +5,9 @@
 // Inicializa la información básica de la orden y enlaza
 // el cliente, dispositivo y servicio correspondiente
 
-OrdenServicio::OrdenServicio(std::string idOrden, std::string fecha, std::string problema, Cliente* cli, Dispositivo* disp, ServicioTecnico* serv){
-    
-    id_orden = idOrden;
+OrdenServicio::OrdenServicio(std::string identificacionOrden, std::string fecha, std::string problema, Cliente* cli, Dispositivo* disp, ServicioTecnico* serv){
+
+    identificacion_orden = identificacionOrden;
     fecha_ingreso = fecha;
     problema_reportado = problema;
 
@@ -27,9 +27,9 @@ OrdenServicio::OrdenServicio(std::string idOrden, std::string fecha, std::string
 }
 
 // Devuelve el identificador de la orden
-std::string OrdenServicio::getIdOrden() const{
+std::string OrdenServicio::getIdentificacionOrden() const{
 
-    return id_orden;
+    return identificacion_orden;
 
 }
 
@@ -77,7 +77,7 @@ double OrdenServicio::calcularCostoFinal() const{
 void OrdenServicio::mostrarInformacion() const{
 
     std::cout << "\n========== ORDEN DE SERVICIO ==========" << std::endl;
-    std::cout << "ID: " << id_orden << std::endl;
+    std::cout << "ID: " << identificacion_orden << std::endl;
     std::cout << "Fecha: " << fecha_ingreso << std::endl;
     std::cout << "Problema Reportado: " << problema_reportado << std::endl;
     std::cout << "Diagnostico: " << diagnostico << std::endl;
@@ -108,6 +108,44 @@ void OrdenServicio::mostrarInformacion() const{
         std::cout << "Costo Final: " << calcularCostoFinal() << std::endl;
     }
 
+}
+
+// Convierte la orden en una linea de texto para el archivo
+std::string OrdenServicio::transformarArchivo() const{
+
+    std::string identificacionCliente;
+    if(cliente != nullptr){
+        identificacionCliente = cliente->getCodigoPersona();
+    }
+    else{
+        identificacionCliente = "";
+    }
+
+    std::string identificacionDispositivo;
+    if(dispositivo != nullptr){
+        identificacionDispositivo = dispositivo->getIdentificacionDispositivo();
+    }
+    else{
+        identificacionDispositivo = "";
+    }
+
+    std::string identificacionServicio;
+    if(servicio != nullptr){
+        identificacionServicio = servicio->getIdentificacionServicio();
+    }
+    else{
+        identificacionServicio = "";
+    }
+
+    std::string identificacionTecnico;
+    if(tecnico != nullptr){
+        identificacionTecnico = tecnico->getCodigoPersona();
+    }
+    else{
+        identificacionTecnico = "";
+    }
+
+    return identificacion_orden + "|" + fecha_ingreso + "|" + problema_reportado + "|" + diagnostico + "|" + estado + "|" + identificacionCliente + "|" + identificacionDispositivo + "|" + identificacionServicio + "|" + identificacionTecnico;
 }
 
 // Destructor de la clase OrdenServicio

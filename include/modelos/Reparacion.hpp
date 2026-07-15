@@ -1,7 +1,7 @@
 #ifndef REPARACION_H
 #define REPARACION_H
 #include <string>
-#include "modelos/ServicioTecnico.hpp
+#include "modelos/ServicioTecnico.hpp"
 
 // Clase Reparacion
 // Hereda de ServicioTecnico y representa un servicio
@@ -23,7 +23,7 @@ private:
 public:
 
     // Constructor
-    Reparacion(std::string idServicio, std::string nombre, std::string descripcion, double precioBase, int duracion, double costoRepuesto, double horasManoObra);
+    Reparacion(std::string identificacionServicio, std::string nombre, std::string descripcion, double precioBase, int duracion, double costoRepuesto, double horasManoObra);
 
     // Getters
     double getCostoRepuesto() const;
@@ -37,6 +37,7 @@ public:
     double calcularCosto() const override;
     std::string getTipo() const override;
     void mostrarInformacion() const override;
+    std::string transformarArchivo() const override;
 
     // Destructor
     ~Reparacion() override;

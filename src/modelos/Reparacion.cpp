@@ -5,8 +5,8 @@
 // Inicializa los atributos y valida que los valores
 // ingresados no sean negativos.
 
-Reparacion::Reparacion(std::string idServicio, std::string nombre, std::string descripcion, double precioBase, int duracion, double costoRepuesto, double horasManoObra)
-: ServicioTecnico(idServicio, nombre, descripcion, precioBase, duracion)
+Reparacion::Reparacion(std::string identificacionServicio, std::string nombre, std::string descripcion, double precioBase, int duracion, double costoRepuesto, double horasManoObra)
+: ServicioTecnico(identificacionServicio, nombre, descripcion, precioBase, duracion)
 {
 
     // Validación del costo del repuesto
@@ -71,7 +71,7 @@ std::string Reparacion::getTipo() const{
 void Reparacion::mostrarInformacion() const{
 
     std::cout << "========== REPARACION ==========" << std::endl;
-    std::cout << "ID: " << id_servicio << std::endl;
+    std::cout << "ID: " << identificacion_servicio << std::endl;
     std::cout << "Nombre: " << nombre << std::endl;
     std::cout << "Descripcion: " << descripcion << std::endl;
     std::cout << "Costo del repuesto: " << costo_repuesto << std::endl;
@@ -79,6 +79,12 @@ void Reparacion::mostrarInformacion() const{
     std::cout << "Precio Base: " << precio_base << std::endl;
     std::cout << "Costo Total: " << calcularCosto() << std::endl;
 
+}
+
+// Convierte la reparacion en una linea de texto para el archivo
+std::string Reparacion::transformarArchivo() const{
+
+    return "Reparacion|" + identificacion_servicio + "|" + nombre + "|" + descripcion + "|" + std::to_string(precio_base) + "|" + std::to_string(duracion_minutos) + "|" + std::to_string(costo_repuesto) + "|" + std::to_string(horas_mano_obra);
 }
 
 // Destructor de la clase Reparacion

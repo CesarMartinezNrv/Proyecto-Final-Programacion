@@ -24,9 +24,9 @@ double costo) : identificacionServicio{identificacionServicio}, identificacionDi
 }
 
 //Getters
-std::string HistorialServicio::getIdServicio() const{ return identificacionServicio;}
-std::string HistorialServicio::getIdDispositivo() const{ return identificacionDispositivo;}
-std::string HistorialServicio::getIdTecnico() const{ return identificacionTecnico;}
+std::string HistorialServicio::getIdentificacionServicio() const{ return identificacionServicio;}
+std::string HistorialServicio::getIdentificacionDispositivo() const{ return identificacionDispositivo;}
+std::string HistorialServicio::getIdentificacionTecnico() const{ return identificacionTecnico;}
 std::string HistorialServicio::getFecha() const{ return fecha;}
 std::string HistorialServicio::getDescripcion() const{ return descripcion;}
 std::string HistorialServicio::getDiagnostico() const{ return diagnostico;}
@@ -122,7 +122,7 @@ bool HistorialServicio::agregar(HistorialServicio* nuevoRegistro){
 
 HistorialServicio* HistorialServicio::buscarPorDispositivo(std::string identificacionDispositivo){
     for(int i{0}; i < cantidad; i++){
-        if(registros[i]->getIdDispositivo() == identificacionDispositivo){
+        if(registros[i]->getIdentificacionDispositivo() == identificacionDispositivo){
             return registros[i]; //Retorna el puntero encontrado en base a la identificacion
         }
     }
@@ -131,7 +131,7 @@ HistorialServicio* HistorialServicio::buscarPorDispositivo(std::string identific
 
 HistorialServicio* HistorialServicio::buscarPorTecnico(std::string identificacionTecnico){
     for(int i{0}; i < cantidad; i++){
-        if(registros[i]->getIdTecnico() == identificacionTecnico){
+        if(registros[i]->getIdentificacionTecnico() == identificacionTecnico){
             return registros[i];
         }
     }
@@ -171,17 +171,17 @@ void HistorialServicio::cargarArchivo(std::string nombreArchivo){
             continue;
         }
         std::stringstream flujo(linea);
-        std::string identificacionServicio, identificacionDispositivo, idTecnico, fecha, descripcion, diagnostico, solucion, costoTexto;
+        std::string identificacionServicio, identificacionDispositivo, identificacionTecnico, fecha, descripcion, diagnostico, solucion, costoTexto;
         std::getline(flujo, identificacionServicio, '|');
         std::getline(flujo, identificacionDispositivo, '|');
-        std::getline(flujo, idTecnico, '|');
+        std::getline(flujo, identificacionTecnico, '|');
         std::getline(flujo, fecha, '|');
         std::getline(flujo, descripcion, '|');
         std::getline(flujo, diagnostico, '|');
         std::getline(flujo, solucion, '|');
         std::getline(flujo, costoTexto, '|');
         double costo{std::stod(costoTexto)};
-        HistorialServicio* nuevoRegistro = new HistorialServicio(identificacionServicio, identificacionDispositivo, idTecnico, fecha, descripcion, diagnostico, solucion, costo);
+        HistorialServicio* nuevoRegistro = new HistorialServicio(identificacionServicio, identificacionDispositivo, identificacionTecnico, fecha, descripcion, diagnostico, solucion, costo);
         agregar(nuevoRegistro);
     }
     archivo.close();

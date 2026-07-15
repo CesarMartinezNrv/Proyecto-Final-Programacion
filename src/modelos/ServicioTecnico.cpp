@@ -1,13 +1,13 @@
-#include "ServicioTecnico.h"
+#include "modelos/ServicioTecnico.hpp"
 #include <iostream>
 
 // Constructor de la clase ServicioTecnico.
 // Inicializa los atributos y valida que el precio y la duración
 // no sean valores negativos.
 
-ServicioTecnico::ServicioTecnico(std::string idServicio, std::string nom, std::string des, double precio, int duracion){
+ServicioTecnico::ServicioTecnico(std::string identificacionServicio, std::string nom, std::string des, double precio, int duracion){
 
-    id_servicio = idServicio;
+    identificacion_servicio = identificacionServicio;
     nombre = nom;
     descripcion = des;
 
@@ -25,8 +25,8 @@ ServicioTecnico::ServicioTecnico(std::string idServicio, std::string nom, std::s
 }
 
 // Devuelve el identificador del servicio
-std::string ServicioTecnico::getIdServicio() const{
-    return id_servicio;
+std::string ServicioTecnico::getIdentificacionServicio() const{
+    return identificacion_servicio;
 }
 
 // Devuelve el nombre del servicio

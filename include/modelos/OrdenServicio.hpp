@@ -15,7 +15,7 @@ class OrdenServicio{
 private:
 
     // Datos generales de la orden
-    std::string id_orden;
+    std::string identificacion_orden;
     std::string fecha_ingreso;
     std::string problema_reportado;
     std::string diagnostico;
@@ -30,10 +30,10 @@ private:
 public:
 
     // Constructor
-    OrdenServicio(std::string idOrden, std::string fecha, std::string problema, Cliente* cli,Dispositivo* disp, ServicioTecnico* serv);
+    OrdenServicio(std::string identificacionOrden, std::string fecha, std::string problema, Cliente* cli,Dispositivo* disp, ServicioTecnico* serv);
 
     // Getters
-    std::string getIdOrden() const;
+    std::string getIdentificacionOrden() const;
     std::string getEstado() const;
 
     // Setters
@@ -50,6 +50,9 @@ public:
 
     // Muestra toda la información de la orden
     void mostrarInformacion() const;
+
+    // Convierte la orden en una linea de texto para el archivo
+    std::string transformarArchivo() const;
 
     // Destructor
     ~OrdenServicio();

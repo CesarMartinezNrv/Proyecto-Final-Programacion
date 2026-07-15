@@ -37,7 +37,7 @@ bool GestorDispositivos::agregarDispositivo(Dispositivo* nuevoDispositivo){
         return false;
     }
     if(buscar(nuevoDispositivo->getIdentificacionDispositivo()) != nullptr){
-        std::cout<<"ERROR. Ya existe un dispositivo con ese id."<<std::endl;
+        std::cout<<"ERROR. Ya existe un dispositivo con esa identificacion."<<std::endl;
         return false;
     }
     if(cantidad == capacidad){
@@ -66,9 +66,9 @@ Dispositivo* GestorDispositivos::buscar(const std::string& marca, const std::str
     return nullptr;
 }
 
-void GestorDispositivos::mostrarPorCliente(std::string idCliente) const{
+void GestorDispositivos::mostrarPorCliente(std::string identificacionCliente) const{
     for(int i{0}; i < cantidad; i++){
-        if(dispositivos[i]->getIdentificacionCliente() == idCliente){
+        if(dispositivos[i]->getIdentificacionCliente() == identificacionCliente){
             dispositivos[i]->mostrarInformacion();
             std::cout<<"----------------------------"<<std::endl;
         }

@@ -51,9 +51,9 @@ public:
     double costo);
 
     //Getters
-    std::string getIdServicio() const;
-    std::string getIdDispositivo() const;
-    std::string getIdTecnico() const;
+    std::string getIdentificacionServicio() const;
+    std::string getIdentificacionDispositivo() const;
+    std::string getIdentificacionTecnico() const;
     std::string getFecha() const;
     std::string getDescripcion() const;
     std::string getDiagnostico() const;

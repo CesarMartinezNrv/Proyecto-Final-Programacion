@@ -37,12 +37,14 @@ public:
 
     // Agrega un nuevo servicio al arreglo.
     // Recibe un puntero a un objeto ServicioTecnico.
-    void agregarServicio(ServicioTecnico* servicio);
+    // Devuelve true si fue agregado o false si el puntero
+    // es nulo o ya existe un servicio con la misma identificacion.
+    bool agregarServicio(ServicioTecnico* servicio);
 
     // Busca un servicio utilizando su identificador.
     // Devuelve un puntero al servicio encontrado.
     // Si no existe, devuelve nullptr.
-    ServicioTecnico* buscarPorId(const std::string& id) const;
+    ServicioTecnico* buscarPorIdentificacion(const std::string& identificacion) const;
 
     // Recorre el arreglo e imprime la información
     // de todos los servicios registrados.
@@ -51,10 +53,16 @@ public:
     // Elimina un servicio utilizando su ID.
     // Devuelve true si fue eliminado correctamente
     // o false si no se encontró.
-    bool eliminarServicio(const std::string& id);
+    bool eliminarServicio(const std::string& identificacion);
 
     // Devuelve la cantidad de servicios almacenados.
     int getCantidad() const;
+
+    // Guarda todos los servicios en un archivo de texto.
+    void guardarArchivo(std::string nombreArchivo) const;
+
+    // Carga los servicios almacenados previamente en un archivo.
+    void cargarArchivo(std::string nombreArchivo);
 };
 
 #endif

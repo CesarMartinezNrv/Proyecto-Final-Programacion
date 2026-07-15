@@ -292,10 +292,10 @@ void menuDispositivos(GestorDispositivos& gestorDispositivos, GestorClientes& ge
             buscarDispositivoPorMarcaModelo(gestorDispositivos);
         }
         else if(opcion == 5){
-            std::string idCliente;
+            std::string identificacionCliente;
             std::cout<<"Codigo del cliente: ";
-            std::getline(std::cin, idCliente);
-            gestorDispositivos.mostrarPorCliente(idCliente);
+            std::getline(std::cin, identificacionCliente);
+            gestorDispositivos.mostrarPorCliente(identificacionCliente);
         }
         else if(opcion != 0){
             std::cout<<"Opcion invalida."<<std::endl;
@@ -304,18 +304,18 @@ void menuDispositivos(GestorDispositivos& gestorDispositivos, GestorClientes& ge
 }
 
 void registrarDispositivo(GestorDispositivos& gestorDispositivos, GestorClientes& gestorClientes){
-    std::string idDispositivo, idCliente, tipo, marca, modelo, numeroSerie, estado;
+    std::string identificacionDispositivo, identificacionCliente, tipo, marca, modelo, numeroSerie, estado;
 
     std::cout<<"ID del dispositivo: ";
-    std::getline(std::cin, idDispositivo);
+    std::getline(std::cin, identificacionDispositivo);
     std::cout<<"Codigo del cliente propietario: ";
-    std::getline(std::cin, idCliente);
+    std::getline(std::cin, identificacionCliente);
 
-    if(gestorClientes.buscarPorIdentificacion(idCliente) == nullptr){
+    if(gestorClientes.buscarPorIdentificacion(identificacionCliente) == nullptr){
         std::cout<<"No existe un cliente con ese codigo."<<std::endl;
         return;
     }
-    Dispositivo* nuevoDispositivo{new Dispositivo(idDispositivo, idCliente, tipo, marca, modelo, numeroSerie, estado)};
+    Dispositivo* nuevoDispositivo{new Dispositivo(identificacionDispositivo, identificacionCliente, tipo, marca, modelo, numeroSerie, estado)};
     if(gestorDispositivos.agregarDispositivo(nuevoDispositivo) == false){
         delete nuevoDispositivo;
         std::cout<<"No se pudo registrar el dispositivo."<<std::endl;
@@ -326,13 +326,13 @@ void registrarDispositivo(GestorDispositivos& gestorDispositivos, GestorClientes
 }
 
 void buscarDispositivoPorIdentificacion(GestorDispositivos& gestorDispositivos){
-    std::string idDispositivo;
+    std::string identificacionDispositivo;
     std::cout<<"ID del dispositivo a buscar: ";
-    std::getline(std::cin, idDispositivo);
+    std::getline(std::cin, identificacionDispositivo);
 
-    Dispositivo* encontrado{gestorDispositivos.buscar(idDispositivo)};
+    Dispositivo* encontrado{gestorDispositivos.buscar(identificacionDispositivo)};
     if(encontrado == nullptr){
-        std::cout<<"No existe un dispositivo con ese id."<<std::endl;
+        std::cout<<"No existe un dispositivo con esa identificacion."<<std::endl;
     }
     else{
         encontrado->mostrarInformacion();
@@ -395,12 +395,12 @@ void registrarServicio(GestorServicios& gestorServicios){
         return;
     }
 
-    std::string id, nombre, descripcion;
+    std::string identificacion, nombre, descripcion;
     double precioBase{0.0};
     int duracion{0};
 
     std::cout<<"ID del servicio: ";
-    std::getline(std::cin, id);
+    std::getline(std::cin, identificacion);
     std::cout<<"Nombre: ";
     std::getline(std::cin, nombre);
     std::cout<<"Descripcion: ";
@@ -421,7 +421,7 @@ void registrarServicio(GestorServicios& gestorServicios){
         std::cout<<"Requiere reporte (s/n): ";
         std::cin>>respuesta;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        nuevoServicio = new Diagnostico(id, nombre, descripcion, precioBase, duracion, nivel, respuesta == 's');
+        nuevoServicio = new Diagnostico(identificacion, nombre, descripcion, precioBase, duracion, nivel, respuesta == 's');
     }
     else if(tipo == 2){
         double costoRepuesto{0.0};
@@ -431,7 +431,7 @@ void registrarServicio(GestorServicios& gestorServicios){
         std::cout<<"Horas de mano de obra: ";
         std::cin>>horasManoObra;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        nuevoServicio = new Reparacion(id, nombre, descripcion, precioBase, duracion, costoRepuesto, horasManoObra);
+        nuevoServicio = new Reparacion(identificacion, nombre, descripcion, precioBase, duracion, costoRepuesto, horasManoObra);
     }
     else{
         char limpieza{'n'};
@@ -441,7 +441,7 @@ void registrarServicio(GestorServicios& gestorServicios){
         std::cout<<"Incluye pasta termica (s/n): ";
         std::cin>>pasta;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        nuevoServicio = new MantenimientoPreventivo(id, nombre, descripcion, precioBase, duracion, limpieza == 's', pasta == 's');
+        nuevoServicio = new MantenimientoPreventivo(identificacion, nombre, descripcion, precioBase, duracion, limpieza == 's', pasta == 's');
     }
 
     if(gestorServicios.agregarServicio(nuevoServicio) == false){
@@ -454,13 +454,13 @@ void registrarServicio(GestorServicios& gestorServicios){
 }
 
 void buscarServicio(GestorServicios& gestorServicios){
-    std::string id;
+    std::string identificacion;
     std::cout<<"ID del servicio a buscar: ";
-    std::getline(std::cin, id);
+    std::getline(std::cin, identificacion);
 
-    ServicioTecnico* encontrado{gestorServicios.buscarPorId(id)};
+    ServicioTecnico* encontrado{gestorServicios.buscarPorIdentificacion(identificacion)};
     if(encontrado == nullptr){
-        std::cout<<"No existe un servicio con ese id."<<std::endl;
+        std::cout<<"No existe un servicio con esa identificacion."<<std::endl;
     }
     else{
         encontrado->mostrarInformacion();
@@ -504,34 +504,34 @@ void menuOrdenes(GestorOrdenes& gestorOrdenes, GestorClientes& gestorClientes, G
 }
 
 void crearOrden(GestorOrdenes& gestorOrdenes, GestorClientes& gestorClientes, GestorTecnicos& gestorTecnicos, GestorDispositivos& gestorDispositivos, GestorServicios& gestorServicios){
-    std::string idOrden, idCliente, idDispositivo, idServicio, fecha, problema;
+    std::string identificacionOrden, identificacionCliente, identificacionDispositivo, identificacionServicio, fecha, problema;
 
     std::cout<<"ID de la orden: ";
-    std::getline(std::cin, idOrden);
+    std::getline(std::cin, identificacionOrden);
     std::cout<<"Codigo del cliente: ";
-    std::getline(std::cin, idCliente);
+    std::getline(std::cin, identificacionCliente);
 
-    Cliente* cliente{gestorClientes.buscarPorIdentificacion(idCliente)};
+    Cliente* cliente{gestorClientes.buscarPorIdentificacion(identificacionCliente)};
     if(cliente == nullptr){
         std::cout<<"No existe un cliente con ese codigo."<<std::endl;
         return;
     }
 
     std::cout<<"ID del dispositivo: ";
-    std::getline(std::cin, idDispositivo);
+    std::getline(std::cin, identificacionDispositivo);
 
-    Dispositivo* dispositivo{gestorDispositivos.buscar(idDispositivo)};
+    Dispositivo* dispositivo{gestorDispositivos.buscar(identificacionDispositivo)};
     if(dispositivo == nullptr){
-        std::cout<<"No existe un dispositivo con ese id."<<std::endl;
+        std::cout<<"No existe un dispositivo con esa identificacion."<<std::endl;
         return;
     }
 
     std::cout<<"ID del servicio: ";
-    std::getline(std::cin, idServicio);
+    std::getline(std::cin, identificacionServicio);
 
-    ServicioTecnico* servicio{gestorServicios.buscarPorId(idServicio)};
+    ServicioTecnico* servicio{gestorServicios.buscarPorIdentificacion(identificacionServicio)};
     if(servicio == nullptr){
-        std::cout<<"No existe un servicio con ese id."<<std::endl;
+        std::cout<<"No existe un servicio con esa identificacion."<<std::endl;
         return;
     }
 
@@ -540,13 +540,13 @@ void crearOrden(GestorOrdenes& gestorOrdenes, GestorClientes& gestorClientes, Ge
     std::cout<<"Problema reportado: ";
     std::getline(std::cin, problema);
 
-    OrdenServicio* nuevaOrden{new OrdenServicio(idOrden, fecha, problema, cliente, dispositivo, servicio)};
+    OrdenServicio* nuevaOrden{new OrdenServicio(identificacionOrden, fecha, problema, cliente, dispositivo, servicio)};
 
-    std::string idTecnico;
+    std::string identificacionTecnico;
     std::cout<<"Codigo del tecnico a asignar (vacio para omitir): ";
-    std::getline(std::cin, idTecnico);
-    if(idTecnico != ""){
-        Tecnico* tecnico{gestorTecnicos.buscarPorIdentificacion(idTecnico)};
+    std::getline(std::cin, identificacionTecnico);
+    if(identificacionTecnico != ""){
+        Tecnico* tecnico{gestorTecnicos.buscarPorIdentificacion(identificacionTecnico)};
         if(tecnico == nullptr){
             std::cout<<"No existe un tecnico con ese codigo, la orden queda sin tecnico asignado."<<std::endl;
         }
@@ -565,13 +565,13 @@ void crearOrden(GestorOrdenes& gestorOrdenes, GestorClientes& gestorClientes, Ge
 }
 
 void buscarOrden(GestorOrdenes& gestorOrdenes){
-    std::string idOrden;
+    std::string identificacionOrden;
     std::cout<<"ID de la orden a buscar: ";
-    std::getline(std::cin, idOrden);
+    std::getline(std::cin, identificacionOrden);
 
-    OrdenServicio* encontrada{gestorOrdenes.buscarPorId(idOrden)};
+    OrdenServicio* encontrada{gestorOrdenes.buscarPorIdentificacion(identificacionOrden)};
     if(encontrada == nullptr){
-        std::cout<<"No existe una orden con ese id."<<std::endl;
+        std::cout<<"No existe una orden con esa identificacion."<<std::endl;
     }
     else{
         encontrada->mostrarInformacion();
@@ -579,13 +579,13 @@ void buscarOrden(GestorOrdenes& gestorOrdenes){
 }
 
 void actualizarEstadoOrden(GestorOrdenes& gestorOrdenes){
-    std::string idOrden, nuevoEstado;
+    std::string identificacionOrden, nuevoEstado;
     std::cout<<"ID de la orden: ";
-    std::getline(std::cin, idOrden);
+    std::getline(std::cin, identificacionOrden);
     std::cout<<"Nuevo estado (Pendiente/En proceso/Finalizada): ";
     std::getline(std::cin, nuevoEstado);
 
-    gestorOrdenes.actualizarEstado(idOrden, nuevoEstado);
+    gestorOrdenes.actualizarEstado(identificacionOrden, nuevoEstado);
 }
 
 //===== Historial =====
@@ -621,15 +621,15 @@ void menuHistorial(){
 }
 
 void registrarHistorial(){
-    std::string idServicio, idDispositivo, idTecnico, fecha, descripcion, diagnostico, solucion;
+    std::string identificacionServicio, identificacionDispositivo, identificacionTecnico, fecha, descripcion, diagnostico, solucion;
     double costo{0.0};
 
     std::cout<<"ID de servicio: ";
-    std::getline(std::cin, idServicio);
+    std::getline(std::cin, identificacionServicio);
     std::cout<<"ID de dispositivo: ";
-    std::getline(std::cin, idDispositivo);
+    std::getline(std::cin, identificacionDispositivo);
     std::cout<<"ID de tecnico: ";
-    std::getline(std::cin, idTecnico);
+    std::getline(std::cin, identificacionTecnico);
     std::cout<<"Fecha: ";
     std::getline(std::cin, fecha);
     std::cout<<"Descripcion: ";
@@ -642,7 +642,7 @@ void registrarHistorial(){
     std::cin>>costo;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    HistorialServicio* nuevoRegistro{new HistorialServicio(idServicio, idDispositivo, idTecnico, fecha, descripcion, diagnostico, solucion, costo)};
+    HistorialServicio* nuevoRegistro{new HistorialServicio(identificacionServicio, identificacionDispositivo, identificacionTecnico, fecha, descripcion, diagnostico, solucion, costo)};
     if(HistorialServicio::agregar(nuevoRegistro) == false){
         delete nuevoRegistro;
         std::cout<<"No se pudo registrar el historial."<<std::endl;
@@ -653,11 +653,11 @@ void registrarHistorial(){
 }
 
 void buscarHistorialPorDispositivo(){
-    std::string idDispositivo;
+    std::string identificacionDispositivo;
     std::cout<<"ID de dispositivo: ";
-    std::getline(std::cin, idDispositivo);
+    std::getline(std::cin, identificacionDispositivo);
 
-    HistorialServicio* encontrado{HistorialServicio::buscarPorDispositivo(idDispositivo)};
+    HistorialServicio* encontrado{HistorialServicio::buscarPorDispositivo(identificacionDispositivo)};
     if(encontrado == nullptr){
         std::cout<<"No existe historial para ese dispositivo."<<std::endl;
     }
@@ -667,11 +667,11 @@ void buscarHistorialPorDispositivo(){
 }
 
 void buscarHistorialPorTecnico(){
-    std::string idTecnico;
+    std::string identificacionTecnico;
     std::cout<<"ID de tecnico: ";
-    std::getline(std::cin, idTecnico);
+    std::getline(std::cin, identificacionTecnico);
 
-    HistorialServicio* encontrado{HistorialServicio::buscarPorTecnico(idTecnico)};
+    HistorialServicio* encontrado{HistorialServicio::buscarPorTecnico(identificacionTecnico)};
     if(encontrado == nullptr){
         std::cout<<"No existe historial para ese tecnico."<<std::endl;
     }

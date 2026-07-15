@@ -20,7 +20,7 @@ private:
 public:
 
     // Constructor
-    Diagnostico(std::string idServicio, std::string nombre, std::string descripcion, double precio, int duracion, std::string nivel, bool reporte);
+    Diagnostico(std::string identificacionServicio, std::string nombre, std::string descripcion, double precio, int duracion, std::string nivel, bool reporte);
 
     // Getters
     std::string getNivelRevision() const;
@@ -34,6 +34,7 @@ public:
     double calcularCosto() const override;
     std::string getTipo() const override;
     void mostrarInformacion() const override;
+    std::string transformarArchivo() const override;
 
     // Destructor
     ~Diagnostico() override;

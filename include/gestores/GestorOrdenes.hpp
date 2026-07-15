@@ -37,11 +37,13 @@ public:
     ~GestorOrdenes();
 
     // Agrega una nueva orden.
-    void agregarOrden(OrdenServicio* orden);
+    // Devuelve true si fue agregada o false si el puntero
+    // es nulo o ya existe una orden con la misma identificacion.
+    bool agregarOrden(OrdenServicio* orden);
 
     // Busca una orden por su identificador.
     // Devuelve nullptr si no existe.
-    OrdenServicio* buscarPorId(const std::string& id) const;
+    OrdenServicio* buscarPorIdentificacion(const std::string& identificacion) const;
 
     // Muestra todas las órdenes registradas.
     void listarOrdenes() const;
@@ -51,10 +53,18 @@ public:
 
     // Cambia el estado de una orden.
     // Devuelve true si se actualizó correctamente.
-    bool actualizarEstado(const std::string& idOrden, const std::string& nuevoEstado);
+    bool actualizarEstado(const std::string& identificacionOrden, const std::string& nuevoEstado);
 
     // Devuelve el número de órdenes almacenadas.
     int getCantidad() const;
+
+    // Guarda todas las ordenes en un archivo de texto.
+    void guardarArchivo(std::string nombreArchivo) const;
+
+    // Carga las ordenes almacenadas previamente en un archivo,
+    // enlazandolas con los clientes, tecnicos, dispositivos
+    // y servicios ya cargados en sus respectivos gestores.
+    void cargarArchivo(std::string nombreArchivo, GestorClientes& gestorClientes, GestorTecnicos& gestorTecnicos, GestorDispositivos& gestorDispositivos, GestorServicios& gestorServicios);
 };
 
 #endif

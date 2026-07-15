@@ -36,7 +36,7 @@ public:
     Dispositivo* buscar(const std::string& identificacionDispositivo) const;
     //Busca en base a la marca y modelo ingresado
     Dispositivo* buscar(const std::string& marca, const std::string& modelo) const;
-    void mostrarPorCliente(std::string idCliente) const;
+    void mostrarPorCliente(std::string identificacionCliente) const;
     bool eliminarDispositivo(std::string identificacionDispositivo);
     void imprimirRegistro() const;
     int getCantidad() const;

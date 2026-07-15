@@ -4,6 +4,7 @@
 #include "modelos/MantenimientoPreventivo.hpp"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 // Constructor de la clase.
 // Recibe una capacidad inicial para el arreglo dinámico.
@@ -58,7 +59,18 @@ void GestorServicios::redimensionar() {
 }
 
 // Agrega un nuevo servicio al gestor.
-void GestorServicios::agregarServicio(ServicioTecnico* servicio) {
+bool GestorServicios::agregarServicio(ServicioTecnico* servicio) {
+
+    // Si el puntero es nulo, se niega el proceso.
+    if (servicio == nullptr) {
+        return false;
+    }
+
+    // Si ya existe un servicio con la misma identificacion, se niega el proceso.
+    if (buscarPorIdentificacion(servicio->getIdentificacionServicio()) != nullptr) {
+        std::cout << "ERROR. Ya existe un servicio con esa identificacion." << std::endl;
+        return false;
+    }
 
     // Si el arreglo está lleno,
     // primero se aumenta su capacidad.
@@ -72,16 +84,18 @@ void GestorServicios::agregarServicio(ServicioTecnico* servicio) {
 
     // Se incrementa el número de servicios registrados.
     cantidad++;
+
+    return true;
 }
 
 // Busca un servicio mediante su ID.
-ServicioTecnico* GestorServicios::buscarPorId(const std::string& id) const {
+ServicioTecnico* GestorServicios::buscarPorIdentificacion(const std::string& identificacion) const {
 
     // Se recorre todo el arreglo.
     for (int i = 0; i < cantidad; i++) {
 
-        // Se compara el ID buscado con el ID del servicio.
-        if (servicios[i]->getIdServicio() == id) {
+        // Se compara la identificacion buscada con la del servicio.
+        if (servicios[i]->getIdentificacionServicio() == identificacion) {
 
             // Si coincide, se devuelve el puntero encontrado.
             return servicios[i];
@@ -115,12 +129,12 @@ void GestorServicios::listarServicios() const {
 }
 
 // Elimina un servicio utilizando su ID.
-bool GestorServicios::eliminarServicio(const std::string& id) {
+bool GestorServicios::eliminarServicio(const std::string& identificacion) {
 
     // Se busca el servicio.
     for (int i = 0; i < cantidad; i++) {
 
-        if (servicios[i]->getIdServicio() == id) {
+        if (servicios[i]->getIdentificacionServicio() == identificacion) {
 
             // Se libera la memoria del objeto encontrado.
             delete servicios[i];
@@ -148,4 +162,83 @@ bool GestorServicios::eliminarServicio(const std::string& id) {
 int GestorServicios::getCantidad() const {
 
     return cantidad;
+}
+
+// Guarda todos los servicios en un archivo de texto.
+void GestorServicios::guardarArchivo(std::string nombreArchivo) const {
+    std::ofstream archivo(nombreArchivo);
+    if (archivo.is_open() == false) {
+        std::cout << "ERROR. No se pudo abrir el archivo para guardar los servicios." << std::endl;
+        return;
+    }
+    for (int i = 0; i < cantidad; i++) {
+        archivo << servicios[i]->transformarArchivo() << std::endl;
+    }
+    archivo.close();
+}
+
+// Carga los servicios almacenados previamente en un archivo.
+void GestorServicios::cargarArchivo(std::string nombreArchivo) {
+    std::ifstream archivo(nombreArchivo);
+    if (archivo.is_open() == false) {
+        std::cout << "AVISO. No existe archivo previo de servicios, se inicia vacio." << std::endl;
+        return;
+    }
+    std::string linea;
+    while (std::getline(archivo, linea)) {
+        if (linea == "") {
+            continue;
+        }
+        std::stringstream flujo(linea);
+        std::string tipo, identificacion, nombreServicio, descripcion, precioBaseTexto, duracionTexto, campoExtra1, campoExtra2;
+        std::getline(flujo, tipo, '|');
+        std::getline(flujo, identificacion, '|');
+        std::getline(flujo, nombreServicio, '|');
+        std::getline(flujo, descripcion, '|');
+        std::getline(flujo, precioBaseTexto, '|');
+        std::getline(flujo, duracionTexto, '|');
+        std::getline(flujo, campoExtra1, '|');
+        std::getline(flujo, campoExtra2, '|');
+
+        double precioBase = std::stod(precioBaseTexto);
+        int duracion = std::stoi(duracionTexto);
+
+        ServicioTecnico* nuevoServicio = nullptr;
+
+        if (tipo == "Diagnostico") {
+            bool reporte;
+            if (campoExtra2 == "1") {
+                reporte = true;
+            }
+            else {
+                reporte = false;
+            }
+            nuevoServicio = new Diagnostico(identificacion, nombreServicio, descripcion, precioBase, duracion, campoExtra1, reporte);
+        }
+        else if (tipo == "Reparacion") {
+            nuevoServicio = new Reparacion(identificacion, nombreServicio, descripcion, precioBase, duracion, std::stod(campoExtra1), std::stod(campoExtra2));
+        }
+        else if (tipo == "MantenimientoPreventivo") {
+            bool limpieza;
+            if (campoExtra1 == "1") {
+                limpieza = true;
+            }
+            else {
+                limpieza = false;
+            }
+            bool pasta;
+            if (campoExtra2 == "1") {
+                pasta = true;
+            }
+            else {
+                pasta = false;
+            }
+            nuevoServicio = new MantenimientoPreventivo(identificacion, nombreServicio, descripcion, precioBase, duracion, limpieza, pasta);
+        }
+
+        if (nuevoServicio != nullptr) {
+            agregarServicio(nuevoServicio);
+        }
+    }
+    archivo.close();
 }

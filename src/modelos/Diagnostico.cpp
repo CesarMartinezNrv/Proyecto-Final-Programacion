@@ -5,8 +5,8 @@
 // Inicializa los atributos propios y llama al constructor
 // de la clase base ServicioTecnico.
 
-Diagnostico::Diagnostico(std::string idServicio, std::string nombre, std::string descripcion, double precio, int duracion, std::string nivel, bool reporte)
-: ServicioTecnico(idServicio, nombre, descripcion, precio, duracion)
+Diagnostico::Diagnostico(std::string identificacionServicio, std::string nombre, std::string descripcion, double precio, int duracion, std::string nivel, bool reporte)
+: ServicioTecnico(identificacionServicio, nombre, descripcion, precio, duracion)
 {
     nivel_revision = nivel;
     requiere_reporte = reporte;
@@ -53,7 +53,7 @@ std::string Diagnostico::getTipo() const{
 void Diagnostico::mostrarInformacion() const{
 
     std::cout << "========== SERVICIO ==========" << std::endl;
-    std::cout << "ID: " << id_servicio << std::endl;
+    std::cout << "ID: " << identificacion_servicio << std::endl;
     std::cout << "Nombre: " << nombre << std::endl;
     std::cout << "Descripcion: " << descripcion << std::endl;
     std::cout << "Tipo: " << getTipo() << std::endl;
@@ -68,6 +68,20 @@ void Diagnostico::mostrarInformacion() const{
 
     std::cout << "Precio base: " << precio_base << std::endl;
     std::cout << "Costo final: " << calcularCosto() << std::endl;
+}
+
+// Convierte el diagnostico en una linea de texto para el archivo
+std::string Diagnostico::transformarArchivo() const{
+
+    std::string reporteTexto;
+    if(requiere_reporte){
+        reporteTexto = "1";
+    }
+    else{
+        reporteTexto = "0";
+    }
+
+    return "Diagnostico|" + identificacion_servicio + "|" + nombre + "|" + descripcion + "|" + std::to_string(precio_base) + "|" + std::to_string(duracion_minutos) + "|" + nivel_revision + "|" + reporteTexto;
 }
 
 // Destructor de la clase Diagnostico

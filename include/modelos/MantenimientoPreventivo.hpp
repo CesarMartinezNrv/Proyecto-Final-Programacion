@@ -24,7 +24,7 @@ private:
 public:
 
     // Constructor
-    MantenimientoPreventivo(std::string idServicio,std::string nombre, std::string descripcion,double precioBase, int duracion, bool limpieza, bool pasta);
+    MantenimientoPreventivo(std::string identificacionServicio,std::string nombre, std::string descripcion,double precioBase, int duracion, bool limpieza, bool pasta);
 
     // Getters
     bool getIncluyeLimpieza() const;
@@ -38,6 +38,7 @@ public:
     double calcularCosto() const override;
     std::string getTipo() const override;
     void mostrarInformacion() const override;
+    std::string transformarArchivo() const override;
 
     // Destructor
     ~MantenimientoPreventivo() override;

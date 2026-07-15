@@ -12,7 +12,7 @@ class ServicioTecnico{
 protected:
 
     // Datos generales del servicio
-    std::string id_servicio;
+    std::string identificacion_servicio;
     std::string nombre;
     std::string descripcion;
 
@@ -23,10 +23,10 @@ protected:
 public:
 
     // Constructor
-    ServicioTecnico(std::string idServicio, std::string nombre, std::string descripcion, double precio, int duracion);
-   
+    ServicioTecnico(std::string identificacionServicio, std::string nombre, std::string descripcion, double precio, int duracion);
+
     // Getters
-    std::string getIdServicio() const;
+    std::string getIdentificacionServicio() const;
     std::string getNombre() const;
     double getPrecioBase() const;
 
@@ -39,6 +39,7 @@ public:
     virtual double calcularCosto() const = 0;
     virtual std::string getTipo() const = 0;
     virtual void mostrarInformacion() const = 0;
+    virtual std::string transformarArchivo() const = 0;
 
     // Destructor virtual para liberar correctamente
     // la memoria cuando se utilice polimorfismo.

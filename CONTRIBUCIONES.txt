@@ -1,3 +1,84 @@
+César Martínez - Integrante 1 
+
+Proyecto-Final-Sistema-Gestion-Servicios-Tecnologicos/
+│
+├── include/
+│ │
+│ ├── modelos/
+│ │ ├── Persona.hpp (clase abstracta)
+│ │ ├── Cliente.hpp
+│ │ ├── Tecnico.hpp
+│ │ ├── Dispositivo.hpp
+│ │ └── HistorialServicio.hpp
+│ │
+│ └── gestores/
+│ ├── GestorClientes.hpp
+│ ├── GestorTecnicos.hpp
+│ └── GestorDispositivos.hpp
+│
+├── src/
+│ │
+│ ├── modelos/
+│ │ ├── Persona.cpp
+│ │ ├── Cliente.cpp
+│ │ ├── Tecnico.cpp
+│ │ ├── Dispositivo.cpp
+│ │ └── HistorialServicio.cpp
+│ │
+│ └── gestores/
+│ ├── GestorClientes.cpp
+│ ├── GestorTecnicos.cpp
+│ └── GestorDispositivos.cpp
+│
+└── data/
+├── clientes.txt
+├── tecnicos.txt
+├── dispositivos.txt
+└── historiales.txt
+
+Clases implementadas:
+Persona
+Cliente
+Tecnico
+HistorialServicio
+Dispositivo
+GestorClientes
+GestorTecnicos
+GestorDispositivos
+Contribuciones
+Diseño e implementación de Persona como clase base abstracta.
+Diseño e implementación de Cliente y Tecnico como clases derivadas de Persona, utilizando herencia, encapsulamiento, métodos virtuales, override, getters constantes y setters con validaciones.
+Diseño e implementación de Dispositivo para almacenar y gestionar la información de los equipos registrados en el sistema.
+Diseño e implementación de HistorialServicio para registrar la información relacionada con los servicios realizados a los dispositivos.
+Diseño e implementación de GestorClientes, GestorTecnicos y GestorDispositivos mediante arreglos dinámicos y manejo de memoria con new, delete, delete[] y nullptr.
+Implementación del redimensionamiento de los arreglos dinámicos utilizados por las clases gestoras.
+Implementación del guardado y la carga de clientes, técnicos, dispositivos e historiales mediante archivos de texto .txt.
+Implementación de la sobrecarga de la función GestorDispositivos::buscar(), permitiendo realizar búsquedas por identificación del dispositivo o por marca y modelo.
+Participación en la organización de los archivos .hpp y .cpp, corrección de inclusiones y ajuste de nombres de archivos para mantener una estructura uniforme dentro del proyecto.
+Apoyo en la corrección de errores de compilación y en la conexión de las clases implementadas con el menú principal.
+Temas implementados
+
+✓ Programación Orientada a Objetos.
+✓ Encapsulamiento.
+✓ Herencia.
+✓ Polimorfismo.
+✓ Clase abstracta.
+✓ Métodos virtuales y override.
+✓ Constructores y destructores.
+✓ Memoria dinámica.
+✓ Arreglos dinámicos.
+✓ Manejo de punteros.
+✓ Redimensionamiento de arreglos.
+✓ Sobrecarga de funciones.
+✓ Persistencia mediante archivos .txt.
+✓ Gestión de clientes.
+✓ Gestión de técnicos.
+✓ Gestión de dispositivos.
+✓ Historial de servicios.
+
+=========================================================
+
+
 Integrante 2
 ------------
 Proyecto-Final-Sistema-Gestion-Servicios-Tecnologicos/

@@ -1,40 +1,60 @@
 #ifndef GESTORSERVICIOS_HPP
 #define GESTORSERVICIOS_HPP
-
 #include "modelos/ServicioTecnico.hpp"
 #include <string>
 
-class GestorServicios{
+// Clase encargada de administrar todos los servicios técnicos.
+// Utiliza un arreglo dinámico de punteros para almacenar los servicios.
+class GestorServicios {
 
 private:
 
+    // Arreglo dinámico de punteros a ServicioTecnico.
+    // Cada posición apunta a un objeto derivado como Diagnostico,
+    // Reparacion o MantenimientoPreventivo.
     ServicioTecnico** servicios;
-    int capacidad;
+
+    // Número actual de servicios almacenados.
     int cantidad;
 
-    void redimensionar();
+    // Capacidad máxima del arreglo antes de redimensionarlo.
+    int capacidad;
 
-    //Extrae el campo que va desde posicion hasta el siguiente '|' y avanza posicion
-    std::string extraerCampo(const std::string& linea, size_t& posicion) const;
+    // Función privada que aumenta el tamaño del arreglo
+    // cuando ya no existe espacio disponible.
+    void redimensionar();
 
 public:
 
-    GestorServicios(int capacidadInicial = 10);
+    // Constructor.
+    // Recibe una capacidad inicial (por defecto es 5)
+    // y reserva memoria para el arreglo dinámico.
+    GestorServicios(int capacidadInicial = 5);
 
-    bool agregarServicio(ServicioTecnico* servicio);
-
-    ServicioTecnico* buscarPorId(std::string id) const;
-
-    void listarServicios() const;
-
-    void eliminarServicio(std::string id);
-
-    //Persistencia con delimitador "|", primer campo indica la subclase concreta
-    void guardarArchivo(const std::string& nombreArchivo) const;
-    void cargarArchivo(const std::string& nombreArchivo);
-
+    // Destructor.
+    // Libera toda la memoria dinámica utilizada por el gestor.
     ~GestorServicios();
 
+    // Agrega un nuevo servicio al arreglo.
+    // Recibe un puntero a un objeto ServicioTecnico.
+    void agregarServicio(ServicioTecnico* servicio);
+
+    // Busca un servicio utilizando su identificador.
+    // Devuelve un puntero al servicio encontrado.
+    // Si no existe, devuelve nullptr.
+    ServicioTecnico* buscarPorId(const std::string& id) const;
+
+    // Recorre el arreglo e imprime la información
+    // de todos los servicios registrados.
+    void listarServicios() const;
+
+    // Elimina un servicio utilizando su ID.
+    // Devuelve true si fue eliminado correctamente
+    // o false si no se encontró.
+    bool eliminarServicio(const std::string& id);
+
+    // Devuelve la cantidad de servicios almacenados.
+    int getCantidad() const;
 };
 
 #endif

@@ -1,13 +1,72 @@
-# Contribuciones
+Integrante 2
+------------
+Proyecto-Final-Sistema-Gestion-Servicios-Tecnologicos/
+│
+├── include/
+│   │
+│   ├── modelos/
+│   │   ├── ServicioTecnico.hpp (clase abstracta) 
+│   │   ├── Diagnostico.hpp
+│   │   ├── Reparacion.hpp
+│   │   ├── MantenimientoPreventivo.hpp
+│   │   └── OrdenServicio.hpp
+│   │
+│   ├── gestores/
+│   │   ├── GestorServicios.hpp
+│   │   └── GestorOrdenes.hpp
+│   │
+│   └── utilidades/
+│       └── Archivos.hpp
+│
+├── src/
+│   │
+│   ├── modelos/
+│   │   ├── ServicioTecnico.cpp
+│   │   ├── Diagnostico.cpp
+│   │   ├── Reparacion.cpp
+│   │   ├── MantenimientoPreventivo.cpp
+│   │   └── OrdenServicio.cpp
+│   │
+│   ├── gestores/
+│   │   ├── GestorServicios.cpp
+│   │   └── GestorOrdenes.cpp
+│   │
+│   └── utilidades/
+│       └── Archivos.cpp
+│
+├── data/
+│   ├── servicios.txt
+│   ├── ordenes.txt
+│   ├── clientes.txt
+│   ├── tecnicos.txt
+│   ├── dispositivos.txt
+│   └── historiales.txt
+│
+└── main.cpp
 
-## Cesar Martinez
+Archivos de apoyo:
+- main.cpp
+- Documentación de las clases.
+- Comentarios y organización del código.
+- Persistencia básica mediante archivos de texto.
 
-Responsable del modulo de estructura del sistema:
+---------------------------------------------------------
 
-- Diseno e implementacion de `Persona` (clase base abstracta), `Cliente` y `Tecnico` (herencia y polimorfismo).
-- Diseno e implementacion de `Dispositivo` e `HistorialServicio`, incluyendo `operator==` y `operator<<`.
-- Diseno e implementacion de `GestorClientes`, `GestorTecnicos` y `GestorDispositivos` con arreglos dinamicos (`new`/`delete[]`, redimensionamiento, `nullptr`).
-- Persistencia en archivos `.txt` (guardado y carga) para las 8 clases.
-- Menu principal (`main.cpp`) que integra los gestores.
+Temas implementados
+-------------------
 
+✓ Programación Orientada a Objetos.
+✓ Encapsulamiento.
+✓ Herencia.
+✓ Polimorfismo.
+✓ Clases abstractas.
+✓ Métodos virtuales y override.
+✓ Constructores y destructores.
+✓ Memoria dinámica (new y delete).
+✓ Arreglos dinámicos.
+✓ Manejo de punteros.
+✓ Gestión de servicios.
+✓ Gestión de órdenes.
+✓ Persistencia de datos mediante archivos .txt.
 
+=========================================================

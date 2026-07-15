@@ -2,8 +2,10 @@
 #include <iostream>
 #include <fstream>
 
+//Constructor
 GestorDispositivos::GestorDispositivos() : dispositivos{nullptr}, capacidad{0}, cantidad{0}{}
 
+//Destructor
 GestorDispositivos::~GestorDispositivos(){
     for(int i{0}; i < cantidad; i++){
         delete dispositivos[i];
@@ -14,8 +16,14 @@ GestorDispositivos::~GestorDispositivos(){
 }
 
 void GestorDispositivos::redimensionar(){
-    int nuevaCapacidad{capacidad == 0 ? 4 : capacidad * 2};
-    Dispositivo** nuevoArreglo{new Dispositivo*[nuevaCapacidad]};
+    int nuevaCapacidad{0};
+    if(capacidad == 0){
+        nuevaCapacidad = 2;
+    }
+    else{
+        nuevaCapacidad = capacidad * 2;
+    }
+    Dispositivo** nuevoArreglo = new Dispositivo*[nuevaCapacidad];
     for(int i{0}; i < cantidad; i++){
         nuevoArreglo[i] = dispositivos[i];
     }

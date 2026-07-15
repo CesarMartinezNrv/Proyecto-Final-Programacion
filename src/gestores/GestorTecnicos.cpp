@@ -3,7 +3,9 @@
 #include <fstream>
 #include <sstream>
 
+//Constructor
 GestorTecnicos::GestorTecnicos() : tecnicos{nullptr}, capacidad{0}, cantidad{0}{}
+//Destructor (Libera memoria dinamica)
 GestorTecnicos::~GestorTecnicos(){
     for(int i{0}; i < cantidad; i++){
         delete tecnicos[i];
@@ -12,39 +14,51 @@ GestorTecnicos::~GestorTecnicos(){
     delete[] tecnicos;
     tecnicos = nullptr;
 }
+
+
 void GestorTecnicos::redimensionar(){
-    int nuevaCapacidad{capacidad == 0 ? 4 : capacidad * 2};
-    Tecnico** nuevoArreglo{new Tecnico*[nuevaCapacidad]};
-    for(int i{0}; i < cantidad; i++){
-        nuevoArreglo[i] = tecnicos[i];
+    int nuevaCapacidad{0};
+
+    if(capacidad == 0){
+        nuevaCapacidad = 2;
     }
-    delete[] tecnicos;
+    else{
+        nuevaCapacidad = capacidad * 2;
+    }
+
+    Tecnico** nuevoArreglo = new Tecnico*[nuevaCapacidad];
+    for(int i{0}; i < cantidad; i++){
+        nuevoArreglo[i] = tecnicos[i]; //Asigna las direcciones de memoria de los tecnicos en
+                                       //el nuevo arreglo
+    }
+    delete[] tecnicos; //Elimina el viejo arreglo de punteros
     tecnicos = nuevoArreglo;
     capacidad = nuevaCapacidad;
 }
+
 bool GestorTecnicos::agregarTecnico(Tecnico* nuevoTecnico){
-    if(nuevoTecnico == nullptr){
+    if(nuevoTecnico == nullptr){ //Si el puntero es null, negar el proceso
         return false;
     }
     if(buscarPorIdentificacion(nuevoTecnico->getCodigoPersona()) != nullptr){
         std::cout<<"ERROR. Ya existe un tecnico con ese codigo."<<std::endl;
-        return false;
+        return false; //Si se encuentra un tecnico con el mismo codigo, se niega el proceso
     }
     if(cantidad == capacidad){
-        redimensionar();
+        redimensionar(); //Si el arreglo esta lleno, se redimensiona para expandirlo
     }
-    tecnicos[cantidad] = nuevoTecnico;
-    cantidad++;
+    tecnicos[cantidad] = nuevoTecnico; //Se agrega el puntero
+    cantidad++; //aumenta la cantidad ocupada en el arreglo
     return true;
 }
 
 Tecnico* GestorTecnicos::buscarPorIdentificacion(std::string codigoPersona) const{
     for(int i{0}; i < cantidad; i++){
         if(tecnicos[i]->getCodigoPersona() == codigoPersona){
-            return tecnicos[i];
-        }
+            return tecnicos[i]; //Si se encuentra el mismo codigo en el arreglo, retorna la direccion 
+        }                       //del tecnico encontrado
     }
-    return nullptr;
+    return nullptr; //Si no encuentra nada retorna null
 }
 
 Tecnico* GestorTecnicos::buscarPorCedula(std::string cedula) const{
@@ -57,27 +71,28 @@ Tecnico* GestorTecnicos::buscarPorCedula(std::string cedula) const{
 }
 
 Tecnico* GestorTecnicos::buscarDisponible() const{
-    for(int i{0}; i < cantidad; i++){
+    //Recorre el arreglo buscando el tecnico que tenga el atributo EstadoDisponible = true;
+    for(int i{0}; i < cantidad; i++){ 
         if(tecnicos[i]->getEstadoDisponible() == true){
-            return tecnicos[i];
+            return tecnicos[i]; //Retorna la direccion de memoria
         }
     }
     return nullptr;
 }
 
 bool GestorTecnicos::eliminarTecnico(std::string codigoPersona){
-    for(int i{0}; i < cantidad; i++){
+    for(int i{0}; i < cantidad; i++){ //Recorre el arreglo buscando el mismo codigo que coincida
         if(tecnicos[i]->getCodigoPersona() == codigoPersona){
-            delete tecnicos[i];
+            delete tecnicos[i]; //Si lo encuentra borra la direccion de memoria
             for(int j{i}; j < cantidad - 1; j++){
-                tecnicos[j] = tecnicos[j + 1];
+                tecnicos[j] = tecnicos[j + 1]; //Moviliza todas las direcciones de memoria hacia la izquierda
             }
-            tecnicos[cantidad - 1] = nullptr;
-            cantidad--;
+            tecnicos[cantidad - 1] = nullptr; //Donde se borró al tecnico se apunta a null para no tener comportamientos 
+            cantidad--;                       //inesperados
             return true;
         }
     }
-    return false;
+    return false; //Si no encuentra nada, retorna falso
 }
 
 void GestorTecnicos::imprimirRegistro() const{
@@ -98,10 +113,12 @@ void GestorTecnicos::guardarArchivo(std::string nombreArchivo) const{
         return;
     }
     for(int i{0}; i < cantidad; i++){
+        //Se ingresa la informacion de cada tecnico en una linea de texto
         archivo<<tecnicos[i]->transformarArchivo()<<std::endl;
     }
     archivo.close();
 }
+
 
 void GestorTecnicos::cargarArchivo(std::string nombreArchivo){
     std::ifstream archivo(nombreArchivo);
@@ -114,8 +131,10 @@ void GestorTecnicos::cargarArchivo(std::string nombreArchivo){
         if(linea == ""){
             continue;
         }
-        std::stringstream flujo(linea);
+        std::stringstream flujo(linea); //Permiete leer el string como cin>>
+        //Variables locales que almacen los atribitos
         std::string codigoPersona, nombre, numeroDeTelefono, correo, cedula, especialidad, disponibleTexto, serviciosTexto;
+        //Estructurra de getline (origen, destino, hasta donde)
         std::getline(flujo, codigoPersona, '|');
         std::getline(flujo, nombre, '|');
         std::getline(flujo, numeroDeTelefono, '|');
@@ -124,14 +143,16 @@ void GestorTecnicos::cargarArchivo(std::string nombreArchivo){
         std::getline(flujo, especialidad, '|');
         std::getline(flujo, disponibleTexto, '|');
         std::getline(flujo, serviciosTexto, '|');
-        Tecnico* nuevoTecnico{new Tecnico(codigoPersona, nombre, numeroDeTelefono, correo, cedula, especialidad)};
-        if(disponibleTexto == "0"){
+        Tecnico* nuevoTecnico = new Tecnico(codigoPersona, nombre, numeroDeTelefono, correo, cedula, especialidad);
+        if(disponibleTexto == "0"){ //Si existe un 0 significa que esta ocupado
             nuevoTecnico->marcarComoOcupado();
         }
-        for(int i{0}; i < std::stoi(serviciosTexto); i++){
+        //Restauracion
+        for(int i{0}; i < std::stoi(serviciosTexto); i++){ //Transofrma el tipo string a entero
             nuevoTecnico->registrarServicioAtendido();
+            //Actualiza el numero de registros atentidos
         }
-        agregarTecnico(nuevoTecnico);
+        agregarTecnico(nuevoTecnico); //Agrega la direccion del tecno al arreglo 
     }
     archivo.close();
 }
